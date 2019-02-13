@@ -1,8 +1,17 @@
 <!doctype html>
+<html>
 <head>
-<title>API keys</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>API keys</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Ansök om API-nycklar</h1> 
+<h1>Ansök om API-nycklar</h1>
+<form method="post" action="/register">
+    <label for="email">E-postadress</label>
+    <input type="email" name="email" id="email" size="100"/>
+    <label for="application_id">ApplikationsId</label>
+    <input type="int" name="appid" id="application_id"/>
+    <input type="submit" value="Ansök">
+</form>
 </body>
+</html>

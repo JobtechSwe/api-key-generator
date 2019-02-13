@@ -1,5 +1,6 @@
 import logging
 from flask import Flask
+from apikeys import repository
 
 app = Flask(__name__)
 
@@ -39,6 +40,8 @@ def setup_application():
 
     log = logging.getLogger(__name__)
     log.debug(logging.getLevelName(log.getEffectiveLevel()) + ' log level activated')
+
+    repository.sanity_check()
     log.info("Starting %s" % __name__)
 
 
