@@ -38,6 +38,19 @@ def query(sql, args):
     return rows
 
 
+def get_unsent_keys():
+    sql = f"SELECT email, apikey FROM {TABLE_NAME} WHERE sent = 0"
+    res = query(sql, ())
+    return res
+
+
+def set_sent(apikey):
+    sql = f"UPDATE {TABLE_NAME} SET sent = 1 WHERE apikey = %s"
+    cur = pg_conn.cursor()
+    cur.execute(sql, (apikey,))
+    pg_conn.commit()
+
+
 def get_key_for_ticket(ticket):
     sql = f"SELECT apikey FROM {TABLE_NAME} WHERE ticket = %s"
     res = query(sql, (ticket, ))
@@ -112,7 +125,8 @@ def sanity_check():
                         api_id INTEGER NOT NULL,
                         name VARCHAR(100),
                         email VARCHAR(256) NOT NULL,
-                        ticket VARCHAR(32)
+                        ticket VARCHAR(32),
+                        sent INTEGER NOT NULL DEFAULT 0
                     )
                 """.format(table=TABLE_NAME),
                 "CREATE INDEX {table}_apikey_idx ON {table} (apikey)"

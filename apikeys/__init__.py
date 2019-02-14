@@ -42,7 +42,6 @@ def setup_application():
     log.debug(logging.getLevelName(log.getEffectiveLevel()) + ' log level activated')
 
     postgres.sanity_check()
-    log.info("Starting %s" % __name__)
 
 
 if __name__ == '__main__':
@@ -51,4 +50,3 @@ if __name__ == '__main__':
     app.run(debug=True)
 else:
     setup_application()
-    print("Starting %s" % __name__)
