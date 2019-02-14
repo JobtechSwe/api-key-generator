@@ -1,11 +1,13 @@
 from apikeys import app
-from apikeys import repository
+from apikeys.repository import postgres
 from flask import render_template, request, flash
 
 
 @app.route('/')
 def hello():
-    return render_template('base.html')
+    available_apis = postgres.get_available_applications()
+    print("available: ", available_apis)
+    return render_template('base.html', app_list=available_apis)
 
 
 @app.route('/register', methods=['POST'])
@@ -21,8 +23,8 @@ def register():
         flash(error)
 
     print("E-postadress: %s" % email)
-    key = repository.create_api_key(email)
-    ticket = repository.store_key(key, email, None, app_id)
+    key = postgres.create_api_key(email)
+    ticket = postgres.store_key(key, email, None, app_id)
 
     print("KEY: %s" % key)
     print("ADDRESS: http://localhost:5000/key/%s" % ticket)
@@ -32,6 +34,6 @@ def register():
 
 @app.route("/key/<ticket>", methods=['GET'])
 def showkey(ticket):
-    key = repository.get_key_for_ticket(ticket)
+    key = postgres.get_key_for_ticket(ticket)
     return f"Your API key is <b>{key}</b>"
 

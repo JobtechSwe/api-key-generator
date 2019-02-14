@@ -10,7 +10,11 @@
     <label for="email">E-postadress</label>
     <input type="email" name="email" id="email" size="100"/>
     <label for="application_id">ApplikationsId</label>
-    <input type="int" name="appid" id="application_id"/>
+    <select name="appid" id="application_id">
+        {% for a in app_list %}
+        <option value="{{ a.id }}">{{ a.name }}: {{ a.description }}</option>
+        {% endfor %}
+    </select>
     <input type="submit" value="Ansök">
 </form>
 </body>

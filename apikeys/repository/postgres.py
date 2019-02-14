@@ -1,15 +1,16 @@
 import logging
-from apikeys import settings
-import psycopg2
 import sys
 import base64
 import random
 import string
+import psycopg2
+from apikeys import settings
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 TABLE_NAME = 'apikeys'
+APPLICATION_TABLE = 'available_apis'
 
 if not settings.PG_DBNAME or not settings.PG_USER:
     log.error("You must set environment variables for PostgresSQL (i.e. "
@@ -45,51 +46,39 @@ def get_key_for_ticket(ticket):
     return None
 
 
-def store_key(apikey, email, name, application_id=0):
+def get_available_applications():
+    sql = f"SELECT api_id, name, description FROM {APPLICATION_TABLE}"
+    res = query(sql, ())
+    if res:
+        return [{'id': item[0], 'name': item[1], 'description': item[2]}
+                for item in res]
+    return []
+
+
+def store_key(apikey, email, name, api_id=0):
     ticket = generate_ticket()
 
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
-                " (apikey, email, name, application_id, ticket)"
+                " (apikey, email, name, api_id, ticket)"
                 " VALUES (%s, %s, %s, %s, %s)"
                 " ON CONFLICT (apikey) DO UPDATE"
                 " SET email = %s, name = %s,"
-                " application_id = apikeys.application_id|%s, ticket = %s",
-                (apikey, email, name, application_id, ticket,
-                 email, name, application_id, ticket))
+                " api_id = apikeys.api_id|%s, ticket = %s",
+                (apikey, email, name, api_id, ticket,
+                 email, name, api_id, ticket))
     pg_conn.commit()
     return ticket
 
 
-def table_exists():
+def table_exists(table):
     cur = pg_conn.cursor()
     cur.execute("select exists(select * from information_schema.tables "
-                "where table_name=%s)", (TABLE_NAME,))
+                "where table_name=%s)", (table,))
     return cur.fetchone()[0]
 
 
-def create_table():
-    statements = (
-        """
-            CREATE TABLE {table} (
-                apikey VARCHAR(200) NOT NULL PRIMARY KEY,
-                application_id INTEGER NOT NULL,
-                name VARCHAR(100),
-                email VARCHAR(256) NOT NULL,
-                ticket VARCHAR(32)
-            )
-        """.format(table=TABLE_NAME),
-        """
-            CREATE TABLE api_application_ids (
-                application_id INTEGER PRIMARY KEY,
-                application_name VARCHAR(100) NOT NULL
-            )
-        """,
-        "CREATE INDEX {table}_apikey_idx ON {table} (apikey)".format(table=TABLE_NAME),
-        "CREATE INDEX {table}_application_id_idx ON {table} (application_id)".format(table=TABLE_NAME),
-        "CREATE INDEX {table}_email_idx ON {table} (email)".format(table=TABLE_NAME),
-        "CREATE INDEX {table}_ticket_idx ON {table} (ticket)".format(table=TABLE_NAME),
-    )
+def _execute_statments(statements):
     try:
         cur = pg_conn.cursor()
         for statement in statements:
@@ -114,5 +103,37 @@ def generate_ticket():
 
 
 def sanity_check():
-    if not table_exists():
-        create_table()
+    if not table_exists(TABLE_NAME):
+        _execute_statments(
+            (
+                """
+                    CREATE TABLE {table} (
+                        apikey VARCHAR(200) NOT NULL PRIMARY KEY,
+                        api_id INTEGER NOT NULL,
+                        name VARCHAR(100),
+                        email VARCHAR(256) NOT NULL,
+                        ticket VARCHAR(32)
+                    )
+                """.format(table=TABLE_NAME),
+                "CREATE INDEX {table}_apikey_idx ON {table} (apikey)"
+                .format(table=TABLE_NAME),
+                "CREATE INDEX {table}_api_id_idx ON {table} (api_id)"
+                .format(table=TABLE_NAME),
+                "CREATE INDEX {table}_email_idx ON {table} (email)"
+                .format(table=TABLE_NAME),
+                "CREATE INDEX {table}_ticket_idx ON {table} (ticket)"
+                .format(table=TABLE_NAME),
+            )
+        )
+    if not table_exists(APPLICATION_TABLE):
+        _execute_statments(
+            (
+                """
+                    CREATE TABLE {table} (
+                        api_id INTEGER PRIMARY KEY,
+                        name VARCHAR(30) NOT NULL,
+                        description VARCHAR(200)
+                    )
+                """.format(table=APPLICATION_TABLE),
+            )
+        )
