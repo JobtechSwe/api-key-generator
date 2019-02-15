@@ -35,5 +35,6 @@ def register():
 @app.route("/key/<ticket>", methods=['GET'])
 def showkey(ticket):
     key = postgres.get_key_for_ticket(ticket)
-    return f"Your API key is <b>{key}</b>"
-
+    if not key:
+        flash('Ticket is not available or has expired.')
+    return render_template('key.html', key=key)

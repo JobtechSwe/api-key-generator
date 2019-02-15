@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+    <title>Din API-nyckel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Din API-nyckel är:</h1>
+<div style="margin: auto; width: 80%; border: 3px solid black; padding: 30px">
+<code style="font-size:2.8vw">{{ key }}</code>
+</div>
+<p>Kopiera din nyckel till en säker plats. Den här sidan är bara tillgänglig i tio minuter efter att du besökt den första gången.</p>
+<p>För att få access till API:et, skicka med header-parametern <code>X-ApiKey:{{key}}</code> till ditt anrop.</p>
+</body>
+</html>
+

@@ -39,15 +39,15 @@ def query(sql, args):
 
 
 def get_unsent_keys():
-    sql = f"SELECT email, apikey FROM {TABLE_NAME} WHERE sent = 0"
+    sql = f"SELECT email, ticket FROM {TABLE_NAME} WHERE sent = 0"
     res = query(sql, ())
     return res
 
 
-def set_sent(apikey):
-    sql = f"UPDATE {TABLE_NAME} SET sent = 1 WHERE apikey = %s"
+def set_sent(email):
+    sql = f"UPDATE {TABLE_NAME} SET sent = 1 WHERE email = %s"
     cur = pg_conn.cursor()
-    cur.execute(sql, (apikey,))
+    cur.execute(sql, (email,))
     pg_conn.commit()
 
 
