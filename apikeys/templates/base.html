@@ -7,14 +7,14 @@
 <body>
 <h1>Ansök om API-nycklar</h1>
 <form method="post" action="/register">
-    <label for="email">E-postadress</label>
+    <label for="email"><b>E-postadress</b></label>
     <input type="email" name="email" id="email" size="100"/>
-    <label for="application_id">ApplikationsId</label>
-    <select name="appid" id="application_id">
-        {% for a in app_list %}
-        <option value="{{ a.id }}">{{ a.name }}: {{ a.description }}</option>
-        {% endfor %}
-    </select>
+    <p>
+        <b>Önskade API:er</b><br/>
+    {% for a in app_list %}
+    <input type="checkbox" name="appid" value="{{ a.id }}">{{ a.description }}</input><br/>
+    {% endfor %}
+    </p>
     <input type="submit" value="Ansök">
 </form>
 </body>

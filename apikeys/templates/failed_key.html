@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="se">
+<head>
+    <meta charset="UTF-8">
+    <title>Utgången länk</title>
+</head>
+<body>
+<h1>Utgången länk</h1>
+<p>
+    API-nyckeln du försöker komma åt är inte tillgänglig. Antingen är länken utgången
+    eller så saknas den.
+</p>
+<p>
+    Om du vet att du har en API-nyckel för den epostadress du angivit kan du ange den
+    här för att få en ny länk skickad till dig.
+</p>
+<form method="post" action="/retrieve_key">
+    <label for="email">E-postadress</label>
+    <input type="email" id="email" name="email"/>
+    <input type="hidden" name="ticket" value="{{ticket}}"/>
+    <input type="submit" value="Skicka mejl"/>
+</form>
+</body>
+</html>

@@ -1,40 +1,67 @@
 from apikeys import app
 from apikeys.repository import postgres
-from flask import render_template, request, flash
+from flask import render_template, request
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def hello():
     available_apis = postgres.get_available_applications()
-    print("available: ", available_apis)
     return render_template('base.html', app_list=available_apis)
 
 
 @app.route('/register', methods=['POST'])
 def register():
     email = request.form['email']
-    app_id = request.form['appid']
-    error = None
-
+    appids = request.form.getlist('appid')
     if not email:
-        error = 'Email is required'
+        return "Du måste ange en e-postadress."
 
-    if error is not None:
-        flash(error)
+    app_id = 0
+    for aid in appids:
+        app_id = app_id | int(aid)
 
-    print("E-postadress: %s" % email)
     key = postgres.create_api_key(email)
     ticket = postgres.store_key(key, email, None, app_id)
 
-    print("KEY: %s" % key)
     print("ADDRESS: http://localhost:5000/key/%s" % ticket)
 
-    return render_template('registered.html')
+    return render_template('registered.html', email=email)
 
 
 @app.route("/key/<ticket>", methods=['GET'])
 def showkey(ticket):
     key = postgres.get_key_for_ticket(ticket)
     if not key:
-        flash('Ticket is not available or has expired.')
+        return render_template("failed_key.html", ticket=ticket)
+    postgres.set_visited(ticket)
     return render_template('key.html', key=key)
+
+
+@app.route("/retrieve_key", methods=['POST'])
+def retrieve_key():
+    email = request.form.get('email')
+    ticket = request.form.get('ticket')
+
+    if not email:
+        return "Du måste ange en e-postadress."
+    if not ticket:
+        return "Formuläret saknas nödvändig data."
+
+    postgres.set_sent_flag(email, 0)
+    postgres.set_visited(None, email=email)
+
+    return render_template('registered.html', email=email)
+
+
+@app.route("/showbits/<number>", methods=['GET'])
+def showbits(number):
+    list = [int(x) for x in "{:08b}".format(int(number))]
+    print(list)
+    n = 0
+    ids = []
+    for l in list:
+        num = (l*2)**(7-n)
+        print(num)
+        ids.append(num)
+        n += 1
+    return str(ids)

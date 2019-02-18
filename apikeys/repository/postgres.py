@@ -44,19 +44,40 @@ def get_unsent_keys():
     return res
 
 
-def set_sent(email):
-    sql = f"UPDATE {TABLE_NAME} SET sent = 1 WHERE email = %s"
+def set_sent_flag(email, flag=0):
+    sql = f"UPDATE {TABLE_NAME} SET sent = %s WHERE email = %s"
     cur = pg_conn.cursor()
-    cur.execute(sql, (email,))
+    cur.execute(sql, (flag, email, ))
     pg_conn.commit()
 
 
 def get_key_for_ticket(ticket):
-    sql = f"SELECT apikey FROM {TABLE_NAME} WHERE ticket = %s"
+    sql = f"SELECT apikey FROM {TABLE_NAME} WHERE ticket = %s" + \
+          " AND (visited > (now() - interval '10 mins') " + \
+          " OR visited IS NULL)"
     res = query(sql, (ticket, ))
     if res:
         return res[0][0]
     return None
+
+
+def set_visited(key, email=None):
+    if key:
+        sql = f"UPDATE {TABLE_NAME} SET visited = now() " + \
+              "WHERE visited is null AND ticket = %s"
+    elif email:
+        key = email
+        sql = f"UPDATE {TABLE_NAME} SET visited = now() " + \
+              "WHERE email = %s"
+    else:
+        print("Nothing to set")
+        return
+
+    print("SQL", sql)
+
+    cur = pg_conn.cursor()
+    cur.execute(sql, (key, ))
+    pg_conn.commit()
 
 
 def get_available_applications():
@@ -126,7 +147,8 @@ def sanity_check():
                         name VARCHAR(100),
                         email VARCHAR(256) NOT NULL,
                         ticket VARCHAR(32),
-                        sent INTEGER NOT NULL DEFAULT 0
+                        sent INTEGER NOT NULL DEFAULT 0,
+                        visited TIMESTAMP WITH TIME ZONE
                     )
                 """.format(table=TABLE_NAME),
                 "CREATE INDEX {table}_apikey_idx ON {table} (apikey)"
@@ -151,3 +173,5 @@ def sanity_check():
                 """.format(table=APPLICATION_TABLE),
             )
         )
+
+
