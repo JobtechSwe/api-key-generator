@@ -48,7 +48,7 @@ def retrieve_key():
         return "Formuläret saknas nödvändig data."
 
     postgres.set_sent_flag(email, 0)
-    postgres.set_visited(None, email=email)
+    postgres.set_visited(ticket, force=True)
 
     return render_template('registered.html', email=email)
 

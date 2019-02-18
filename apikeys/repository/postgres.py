@@ -61,14 +61,12 @@ def get_key_for_ticket(ticket):
     return None
 
 
-def set_visited(key, email=None):
+def set_visited(key, force=False):
     if key:
-        sql = f"UPDATE {TABLE_NAME} SET visited = now() " + \
-              "WHERE visited is null AND ticket = %s"
-    elif email:
-        key = email
-        sql = f"UPDATE {TABLE_NAME} SET visited = now() " + \
-              "WHERE email = %s"
+        sql = f"UPDATE {TABLE_NAME} SET visited = now()" + \
+            " WHERE ticket = %s"
+        if not force:
+            sql += " AND visited is null"
     else:
         print("Nothing to set")
         return
@@ -98,7 +96,7 @@ def store_key(apikey, email, name, api_id=0):
                 " VALUES (%s, %s, %s, %s, %s)"
                 " ON CONFLICT (apikey) DO UPDATE"
                 " SET email = %s, name = %s,"
-                " api_id = apikeys.api_id|%s, ticket = %s",
+                " api_id = apikeys.api_id|%s, ticket = %s, visited = null, sent = 0",
                 (apikey, email, name, api_id, ticket,
                  email, name, api_id, ticket))
     pg_conn.commit()

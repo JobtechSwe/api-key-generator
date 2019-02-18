@@ -16,14 +16,14 @@ def send_link_email(recipient, key):
     server.sendmail(settings.MAIL_SENDER, recipient, message)
 
     print(f"Sending email to {recipient} containing link http://localhost:5000/key/{key}")
-    return False
+    return True
 
 
 def start():
     recipients = postgres.get_unsent_keys()
     for recipient in recipients:
         if send_link_email(recipient[0], recipient[1]):
-            postgres.set_sent(recipient[0], 1)
+            postgres.set_sent_flag(recipient[0], 1)
 
 
 if __name__ == '__main__':
