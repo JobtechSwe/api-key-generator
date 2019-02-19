@@ -10,10 +10,10 @@ def send_link_email(recipient, key):
     server.starttls(context=context)
     server.ehlo()
     server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-    message = f"Subject: Din API-nyckel hos JobtechDev\n\n" + \
+    message = "Subject: Din API-nyckel hos JobtechDev\n\n" + \
               "Ladda ner din API-nyckel: http://localhost:5000/key/{key}"
 
-    server.sendmail(settings.MAIL_SENDER, recipient, message)
+    server.sendmail(settings.MAIL_SENDER, recipient, message.format(key=key))
 
     print(f"Sending email to {recipient} containing link http://localhost:5000/key/{key}")
     return True
