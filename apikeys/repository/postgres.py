@@ -61,6 +61,14 @@ def get_key_for_ticket(ticket):
     return None
 
 
+def get_keys_for_api(api_id):
+    sql = f"SELECT apikey FROM {TABLE_NAME} WHERE api_id & %s = %s"
+    res = query(sql, (api_id, api_id,))
+    if res:
+        return [key[0] for key in res]
+    return []
+
+
 def set_visited(key, force=False):
     if key:
         sql = f"UPDATE {TABLE_NAME} SET visited = now()" + \

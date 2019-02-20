@@ -1,5 +1,5 @@
 from apikeys import app
-from apikeys.repository import postgres
+from apikeys.repository import update_elastic, postgres
 from flask import render_template, request
 
 
@@ -22,6 +22,7 @@ def register():
 
     key = postgres.create_api_key(email)
     ticket = postgres.store_key(key, email, None, app_id)
+    update_elastic()
 
     print("ADDRESS: http://localhost:5000/key/%s" % ticket)
 

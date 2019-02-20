@@ -12,3 +12,8 @@ MAIL_PORT = os.getenv('MAIL_PORT')
 MAIL_USERNAME = os.getenv('MAIL_USERNAME')
 MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
 MAIL_SENDER = os.getenv('MAIL_SENDER', 'apirequest@jobtechdev.se')
+
+ES_HOST = os.getenv('ES_HOST', 'localhost')
+ES_USER = os.getenv('ES_USER')
+ES_PWD = os.getenv('ES_PWD')
+ES_PORT = os.getenv('ES_PORT', 9200)
