@@ -2,3 +2,5 @@ elasticsearch
 psycopg2-binary
 flask
 certifi
+pytest
+pytest-runner
