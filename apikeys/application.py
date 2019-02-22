@@ -6,7 +6,7 @@ from flask import render_template, request
 @app.route('/', methods=['GET'])
 def hello():
     available_apis = postgres.get_available_applications()
-    return render_template('base.html', app_list=available_apis)
+    return render_template('form.html', app_list=available_apis)
 
 
 @app.route('/register', methods=['POST'])
@@ -20,8 +20,16 @@ def register():
     for aid in appids:
         app_id = app_id | int(aid)
 
+    userinfo = {
+        "name": request.form.get('name'),
+        "surname": request.form.get('surname'),
+        "company_name": request.form.get('companyname'),
+        "application_name": request.form.get('applicationname'),
+        "description": request.form.get('description'),
+    }
+
     key = postgres.create_api_key(email)
-    ticket = postgres.store_key(key, email, None, app_id)
+    ticket = postgres.store_key(key, email, userinfo, app_id)
     update_elastic()
 
     print("ADDRESS: http://localhost:5000/key/%s" % ticket)

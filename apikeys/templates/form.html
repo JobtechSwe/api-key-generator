@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <title>API keys</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Apply for API-keys</h1>
+<form method="post" action="/register">
+    <label for="email"><b>E-mail</b></label>
+    <input type="email" name="email" id="email" size="100"/><br/>
+    <label for="name"><b>Name</b></label>
+    <input type="text" name="name" id="name"/><br/>
+    <label for="surname"><b>Surname</b></label>
+    <input type="text" name="surname" id="surname"/><br/>
+    <label for="companyname"><b>Company name</b></label>
+    <input type="text" name="companyname" id="companyname"/><br/>
+    <label for="applicationname"><b>Application Name</b></label>
+    <input type="text" name="applicationname" id="applicationname"/><br/>
+    <label for="description"><b>Description (please be brief)</b></label>
+    <textarea rows="4" cols="80" name="description" id="description"></textarea><br/>
+    <p>
+        <b>Wanted APIs</b><br/>
+    {% for a in app_list %}
+    <input type="checkbox" name="appid" value="{{ a.id }}">{{ a.description }}</input><br/>
+    {% endfor %}
+    </p>
+    <input type="submit" value="Ansök">
+</form>
+</body>
+</html>

@@ -1,5 +1,6 @@
 import logging
 import sys
+import json
 import base64
 import random
 import string
@@ -95,18 +96,18 @@ def get_available_applications():
     return []
 
 
-def store_key(apikey, email, name, api_id=0):
+def store_key(apikey, email, userinfo, api_id=0):
     ticket = generate_ticket()
 
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
-                " (apikey, email, name, api_id, ticket)"
+                " (apikey, email, userinfo, api_id, ticket)"
                 " VALUES (%s, %s, %s, %s, %s)"
                 " ON CONFLICT (apikey) DO UPDATE"
-                " SET email = %s, name = %s,"
+                " SET email = %s, userinfo = %s,"
                 " api_id = apikeys.api_id|%s, ticket = %s, visited = null, sent = 0",
-                (apikey, email, name, api_id, ticket,
-                 email, name, api_id, ticket))
+                (apikey, email, json.dumps(userinfo), api_id, ticket,
+                 email, json.dumps(userinfo), api_id, ticket))
     pg_conn.commit()
     return ticket
 
@@ -150,7 +151,7 @@ def sanity_check():
                     CREATE TABLE {table} (
                         apikey VARCHAR(200) NOT NULL PRIMARY KEY,
                         api_id INTEGER NOT NULL,
-                        name VARCHAR(100),
+                        userinfo JSONB,
                         email VARCHAR(256) NOT NULL,
                         ticket VARCHAR(32),
                         sent INTEGER NOT NULL DEFAULT 0,
