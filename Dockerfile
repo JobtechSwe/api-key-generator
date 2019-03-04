@@ -26,7 +26,7 @@ COPY . /app
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN rm /etc/nginx/conf.d/default.conf
 
-#cd COPY supervisord.conf /etc/supervisord.conf
+COPY supervisord.conf /app/supervisord.conf
 
 
 RUN mkdir -p /var/run/nginx && \
@@ -50,4 +50,4 @@ RUN python3 -m pytest -svv -m unit tests/
 RUN rm -rf ./pytest_cache apikeys/__pycache__
 
 USER 10000
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/app/supervisord.conf"]
