@@ -1,1 +1,69 @@
 
+label {
+    padding: 10px 10px 10px 0;
+    display: inline-block;
+    text-align: left;
+    width: 14%;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+
+
+}
+input, select, textarea {
+    width: 15%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    background-color: black;
+    color: white;
+
+
+}
+form {
+    text-align: center;
+
+    }
+hr {
+    border-color:#733ACA;
+    width:5%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+p {
+    font: open Sans;
+
+}
+h1 {
+    font-size: 48px;
+    line-height: 27px;
+    margin-bottom: 35px;
+    margin-top: 50px;
+    font-weight: bold;
+    font-family: Open Sans, sans-serif;
+
+}
+body {
+    background-color: black;
+    color: white;
+    font-family: Open Sans, sans-serif;
+}
+
+.style {
+    background-color: black;
+    color: white;
+    outline-color: #733ACA;
+    font-family: "Open Sans", sans-serif;
+
+}
+.site-button.outline.white:hover {
+    color: #fff;
+    background: none;
+    border-radius: 2px;
+    -webkit-border-radius: 1px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #733ACA;
+}

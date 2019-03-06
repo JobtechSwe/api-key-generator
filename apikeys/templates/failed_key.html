@@ -2,23 +2,31 @@
 <html lang="se">
 <head>
     <meta charset="UTF-8">
-    <title>Utgången länk</title>
+    <title>Expired link</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-<h1>Utgången länk</h1>
-<p>
-    API-nyckeln du försöker komma åt är inte tillgänglig. Antingen är länken utgången
-    eller så saknas den.
-</p>
-<p>
-    Om du vet att du har en API-nyckel för den epostadress du angivit kan du ange den
-    här för att få en ny länk skickad till dig.
-</p>
-<form method="post" action="/retrieve_key">
-    <label for="email">E-postadress</label>
-    <input type="email" id="email" name="email"/>
-    <input type="hidden" name="ticket" value="{{ticket}}"/>
-    <input type="submit" value="Skicka mejl"/>
-</form>
+<img src="../static/images/jobtechdev_white.png">
+    <div class="style" align="center">
+        <h1>Expired link</h1>
+            <hr>
+            <p>
+                The API key link, you're trying to access is no longer avaliable.
+            </p>
+            <p>
+                If you have a API key registered for the specified e-mail address, please, enter the e-mail address
+                here to get a new link.
+
+            </p>
+            <div>
+                <form method="post" action="/retrieve_key">
+                    <label style="width:29%" for="email">E-mail</label>
+                    <br>
+                    <input class="style" type="email" id="email" name="email"/>
+                    <input type="hidden" name="ticket" value="{{ticket}}"/>
+                    <input type="submit" class="site-button outline white " value="Submit"/>
+                </form>
+            </div>
+    </div>
 </body>
 </html>
