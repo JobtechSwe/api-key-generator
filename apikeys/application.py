@@ -1,6 +1,10 @@
+import logging
 from apikeys import app
 from apikeys.repository import update_elastic, postgres
 from flask import render_template, request
+
+
+log = logging.getLogger(__name__)
 
 
 @app.route('/', methods=['GET'])
@@ -30,9 +34,8 @@ def register():
 
     key = postgres.create_api_key(email)
     ticket = postgres.store_key(key, email, userinfo, app_id)
+    log.debug("Generated ticket %s for %s" % (ticket, email))
     update_elastic()
-
-    print("ADDRESS: http://localhost:5000/key/%s" % ticket)
 
     return render_template('registered.html', email=email)
 

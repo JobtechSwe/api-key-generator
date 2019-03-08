@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>Your API key</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body bgcolor="black">
-<img src="../static/images/jobtechdev_white.png">
+<img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
     <div class="style" align="center">
         <h1>This is your API key:</h1>
         <hr>
