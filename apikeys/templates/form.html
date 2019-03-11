@@ -9,7 +9,7 @@
         <img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
         <h1 align="center" >Apply for JobTech API-keys</h1>
 
-            </div>
+
             <hr >
             <div>
                 <form method="post" action="/register">
@@ -21,22 +21,23 @@
                     <input class="style" type="text" name="name" placeholder="Your name (required)"  required oninvalid="this.setCustomValidity('Please Enter your name')" oninput="setCustomValidity('')" id="name"/><br/>
                     <label for="surname">Surname</label>
                     <br>
-                    <input class="style" type="text" name="surname" placeholder="Your surname (required)" required required oninvalid="this.setCustomValidity('Please Enter your surname')" oninput="setCustomValidity('')"  id="surname"/><br/>
+                    <input class="style" type="text" name="surname" placeholder="Your surname (required)" required oninvalid="this.setCustomValidity('Please Enter your surname')" oninput="setCustomValidity('')"  id="surname"/><br/>
                     <label for="companyname">Company name</label>
                     <br>
                     <input class="style" type="text" name="companyname" placeholder="Name of your company (Optional)" id="companyname" /><br/>
                     <label for="applicationname">Application Name</label>
                     <br>
-                    <input class="style" type="text" name="applicationname" placeholder="Name of application" id="applicationname" required oninvalid="this.setCustomValidity('Please Enter some kind of application name')" oninput="setCustomValidity('')" /><br/>
+                    <input class="style" type="text" name="applicationname" placeholder="Name of application (required)" id="applicationname" required oninvalid="this.setCustomValidity('Please Enter some kind of application name')" oninput="setCustomValidity('')" /><br/>
                     <label for="description">Description (please be brief)</label>
                     <br>
                     <textarea class="style" rows="4" cols="80" name="description"placeholder="Description of the application using the API"  id="description"></textarea><br/>
-                    <p>
-                    <b>Wanted APIs</b><br/>
+
+                    <label>Wanted APIs</label><br/>
                     {% for a in app_list %}
-                    <input class="focus" type="checkbox" name="appid" value="{{ a.id }}">{{ a.description }}</input><br/>
+                    <input id="appid" class="focus" type="checkbox" name="appid" value="{{ a.id }}"></input>
+                    <label for="appid">{{ a.description }}</label><br/>
                     {% endfor %}
-                    </p>
+
                     <input type="submit" class="site-button outline white " value="Apply"><br><br>
                     <input type="reset" class="site-button outline white style" value="Reset the form">
 
@@ -46,3 +47,4 @@
 </body>
 
 </html>
+
