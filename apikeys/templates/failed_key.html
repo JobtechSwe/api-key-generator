@@ -22,6 +22,15 @@
                 <form method="post" action="/retrieve_key">
                     <label  for="email">E-mail</label>
                     <br>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <p class="flashes">
+                        {% for message in messages %}
+                        {{ message }}
+                        {% endfor %}
+                        </p>
+                    {% endif %}
+                {% endwith %}
                     <input class="style" type="email" id="email" name="email"/><br><br>
                     <input type="hidden" name="ticket" value="{{ticket}}"/>
                     <input type="submit" class="site-button outline white " value="Submit"/><br><br>

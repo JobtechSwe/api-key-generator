@@ -1,7 +1,7 @@
 import logging
 from apikeys import app
 from apikeys.repository import update_elastic, postgres
-from flask import render_template, request
+from flask import render_template, request, flash, abort, redirect
 
 
 log = logging.getLogger(__name__)
@@ -18,7 +18,8 @@ def register():
     email = request.form['email']
     appids = request.form.getlist('appid')
     if not email:
-        return "Du måste ange en e-postadress."
+        flash("You must provide an email address")
+        return direct("/")
 
     app_id = 0
     for aid in appids:
@@ -54,15 +55,16 @@ def retrieve_key():
     email = request.form.get('email')
     ticket = request.form.get('ticket')
 
-    if not email:
-        return "Du måste ange en e-postadress."
     if not ticket:
-        return "Formuläret saknas nödvändig data."
+        abort(400)
+    if not email:
+        flash("You must provide an email address")
+        return redirect("/key/%s" % ticket)
+    else:
+        postgres.set_sent_flag(email, 0)
+        postgres.set_visited(ticket, force=True)
 
-    postgres.set_sent_flag(email, 0)
-    postgres.set_visited(ticket, force=True)
-
-    return render_template('registered.html', email=email)
+        return render_template('registered.html', email=email)
 
 
 @app.route("/showbits/<number>", methods=['GET'])

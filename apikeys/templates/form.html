@@ -12,6 +12,15 @@
 
             <hr >
             <div>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <p class="flashes">
+                        {% for message in messages %}
+                        {{ message }}
+                        {% endfor %}
+                        </p>
+                    {% endif %}
+                {% endwith %}
                 <form method="post" action="/register">
                     <label for="email">E-mail</label>
                     <br>

@@ -34,6 +34,7 @@ def set_custom_log_level():
 
 def setup_application():
     configure_logging()
+    app.secret_key = 'super secret key'
     with app.app_context():
         # Enables routes in 'application.py'
         from apikeys import application

@@ -67,3 +67,7 @@ body {
     border-style: solid;
     border-color: #733ACA;
 }
+.flashes {
+    color: red;
+    border-radius: 2px;
+}
