@@ -31,7 +31,9 @@
                         </p>
                     {% endif %}
                 {% endwith %}
-                    <input class="style" type="email" id="email" name="email"/><br><br>
+                    <input class="style" type="email" id="email" name="email" required
+                           oninvalid="this.setCustomValidity('Please enter your email')"
+                           oninput="setCustomValidity('')" /><br><br>
                     <input type="hidden" name="ticket" value="{{ticket}}"/>
                     <input type="submit" class="site-button outline white " value="Submit"/><br><br>
                     <input type="reset" class="site-button outline white style" value="Reset the form">
