@@ -6,11 +6,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body bgcolor="black">
-<img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
-     <div class="style" align="center">
-         <h1>You've got mail!</h1>
-         <hr>
-            <p>A link has been sent to your e-mail address {{ email }}</p>
-    </div>
+     <img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
+     <div class="container">
+         <div class="form">
+             <div class="header">
+             <h1>You've got mail!</h1>
+             <hr>
+                <p>A link has been sent to your e-mail address {{ email }}</p>
+             </div>
+         </div>
+     </div>
 </body>
 </html>

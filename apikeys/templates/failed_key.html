@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="se">
-<head>
-    <meta charset="UTF-8">
-    <title>Expired link</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-<img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
-    <div class="style" align="center">
-        <h1>Expired link</h1>
-            <hr>
-            <p>
-                The API key link, you're trying to access is no longer avaliable.
-            </p>
-            <p>
-                If you have a API key registered for the specified e-mail address, please, enter the e-mail address
-                here to get a new link.
+    <head>
+        <meta charset="UTF-8">
+        <title>Expired link</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
+        <div class="container">
+            <div class="form">
+                <div class="header">
 
-            </p>
-            <div>
-                <form method="post" action="/retrieve_key">
-                    <label  for="email">E-mail</label>
-                    <br>
+                        <h1>Expired link</h1>
+                        <hr>
+                            <p>
+                                The API key link you're trying to access is no longer available.
+                            </p>
+                            <p>
+                                If you have an API key registered for the specified e-mail address, please, enter the e-mail address
+                                here to get a new link.
+
+                            </p>
+                            <div>
+                                <form method="post" action="/retrieve_key">
+                                    <label  for="email">E-mail</label>
+                                    <br>
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         <p class="flashes">
@@ -31,14 +34,14 @@
                         </p>
                     {% endif %}
                 {% endwith %}
-                    <input class="style" type="email" id="email" name="email" required
-                           oninvalid="this.setCustomValidity('Please enter your email')"
-                           oninput="setCustomValidity('')" /><br><br>
-                    <input type="hidden" name="ticket" value="{{ticket}}"/>
-                    <input type="submit" class="site-button outline white " value="Submit"/><br><br>
-                    <input type="reset" class="site-button outline white style" value="Reset the form">
-                </form>
-            </div>
-    </div>
-</body>
+                                    <input class="style" type="email" id="email" name="email"/><br><br>
+                                    <input type="hidden" name="ticket" value="{{ticket}}"/>
+                                    <button type="submit" name="skicka" value="Apply">Submit</button>
+                                    <button type="reset" >Reset</button>
+                                </form>
+                            </div>
+
+                </div>  </div>
+        </div>
+    </body>
 </html>
