@@ -11,6 +11,7 @@ setup(
     entry_points={
         'console_scripts': [
             'send-emails = apikeys.tool:start',
+            'update-keys = apikeys.tool:update'
         ],
     },
 )

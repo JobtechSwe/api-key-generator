@@ -4,7 +4,7 @@ import os
 import sys
 import logging
 from apikeys import settings
-from apikeys.repository import postgres
+from apikeys.repository import postgres, update_elastic
 
 
 log = logging.getLogger(__name__)
@@ -28,6 +28,11 @@ def send_link_email(recipient, key):
 
     print(f"Sending email to {recipient} containing link {host}/key/{key}")
     return True
+
+
+# Console script to update keys in elastic
+def update():
+    update_elastic()
 
 
 def start():
