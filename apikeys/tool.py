@@ -26,7 +26,7 @@ def send_link_email(recipient, key):
 
     server.sendmail(settings.MAIL_SENDER, recipient, message.format(host=host, key=key))
 
-    print(f"Sending email to {recipient} containing link {host}/key/{key}")
+    log.info(f"Sending email to {recipient} containing link {host}/key/{key}")
     return True
 
 
