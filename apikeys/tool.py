@@ -31,6 +31,10 @@ def send_link_email(recipient, key):
         log.info(f"Sending email to {recipient} containing link {host}/key/{key}")
     except smtplib.SMTPRecipientsRefused as e:
         log.error("Failed to send email to %s: %s" % (recipient, str(e)))
+    except smtplib.SMTPException as e:
+        log.warning("Failed to send email %s: %s. Trying again later."
+                    % (recipient, str(e)))
+        return False
     return True
 
 
