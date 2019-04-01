@@ -15,18 +15,22 @@ def send_link_email(recipient, key):
     if not host:
         log.error("No HOST_URL environment variable specified")
         sys.exit(1)
-    context = ssl.create_default_context()
-    server = smtplib.SMTP(settings.MAIL_HOST, settings.MAIL_PORT)
-    server.ehlo()
-    server.starttls(context=context)
-    server.ehlo()
-    server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-    message = "Subject: Your API key for JobtechDev\n\n" + \
-              "Get your API key here: {host}/key/{key}"
+    try:
+        context = ssl.create_default_context()
+        server = smtplib.SMTP(settings.MAIL_HOST, settings.MAIL_PORT)
+        server.ehlo()
+        server.starttls(context=context)
+        server.ehlo()
+        server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
+        message = "Subject: Your API key for JobtechDev\n\n" + \
+                  "Get your API key here: {host}/key/{key}"
 
-    server.sendmail(settings.MAIL_SENDER, recipient, message.format(host=host, key=key))
+        server.sendmail(settings.MAIL_SENDER, recipient, message.format(host=host,
+                                                                        key=key))
 
-    log.info(f"Sending email to {recipient} containing link {host}/key/{key}")
+        log.info(f"Sending email to {recipient} containing link {host}/key/{key}")
+    except smtplib.SMTPRecipientsRefused as e:
+        log.error("Failed to send email to %s: %s" % (recipient, str(e)))
     return True
 
 
