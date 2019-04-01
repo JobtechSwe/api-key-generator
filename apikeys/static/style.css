@@ -39,7 +39,7 @@ button {
 
 }
 .form {
-    width: 50%;
+    width: 100%;
     margin: auto;
     background-color: black;
     display:block;
@@ -118,7 +118,7 @@ body {
 }
 
 #keystyle{
-    font-size: 2.0vw;
+    font-size: 2.8vw;
 }
 
 .focus {
