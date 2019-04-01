@@ -110,6 +110,17 @@ body {
     border-color: #733ACA;
 }
 
+#box{
+    margin: auto;
+    width: 80%;
+    border: 3px solid white;
+    padding: 30px;
+}
+
+#keystyle{
+    font-size: 2.0vw;
+}
+
 .focus {
     text-align: center;
 }
