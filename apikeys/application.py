@@ -19,7 +19,7 @@ def register():
     appids = request.form.getlist('appid')
     if not email:
         flash("You must provide an email address")
-        return direct("/")
+        return redirect("/")
 
     app_id = 0
     for aid in appids:
