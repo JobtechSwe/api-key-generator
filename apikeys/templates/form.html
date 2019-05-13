@@ -56,6 +56,12 @@
                                 <input type="checkbox" name="appid" value="16" id="appid">
                                 <label for="appid">Open Jobs Bulk API</label><br/>
                             </div>
+                            <hr/>
+                            <div class="api">
+                            <input type="checkbox" name="approve" value="1" id="approve" required oninvalid="this.setCustomValidity('You must approve that we store your details')" oninput="setCustomValidity('')" >
+                            <label for="approve">You may you store my details electronically.</label><br/>
+                            </div>
+                            <hr/>
                             <button type="submit" name="skicka" value="Apply">Submit</button>
                             <button type="reset" >Reset</button>
 

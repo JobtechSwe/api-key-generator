@@ -17,6 +17,9 @@ def hello():
 def register():
     email = request.form['email']
     appids = request.form.getlist('appid')
+    if not request.form.get('approve', None):
+        flash("You must approve our handling of your details.")
+        return redirect("/")
     if not email:
         flash("You must provide an email address")
         return redirect("/")
