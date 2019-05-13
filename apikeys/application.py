@@ -24,6 +24,9 @@ def register():
     app_id = 0
     for aid in appids:
         app_id = app_id | int(aid)
+    if app_id == 0:
+        flash("You need to select at least one API")
+        return redirect("/")
 
     userinfo = {
         "name": request.form.get('name'),
