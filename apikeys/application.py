@@ -15,12 +15,15 @@ def hello():
 
 @app.route('/register', methods=['POST'])
 def register():
+    log.debug("Serving request for /register: %s" % request)
     email = request.form['email']
     appids = request.form.getlist('appid')
     if not request.form.get('approve', None):
+        log.debug("User has not approved GDPR, sending back to base page")
         flash("You must approve our handling of your details.")
         return redirect("/")
     if not email:
+        log.debug("User has provided an email address, sending back to base page")
         flash("You must provide an email address")
         return redirect("/")
 
@@ -28,6 +31,7 @@ def register():
     for aid in appids:
         app_id = app_id | int(aid)
     if app_id == 0:
+        log.debug("User has not selected an API, sending back to base page")
         flash("You need to select at least one API")
         return redirect("/")
 
@@ -52,6 +56,7 @@ def showkey(ticket):
     key = postgres.get_key_for_ticket(ticket)
     if not key:
         return render_template("failed_key.html", ticket=ticket)
+    log.debug("Showing API key for ticket %s" % ticket)
     postgres.set_visited(ticket)
     return render_template('key.html', key=key)
 
@@ -67,6 +72,7 @@ def retrieve_key():
         flash("You must provide an email address")
         return redirect("/key/%s" % ticket)
     else:
+        log.debug("Preparing to resend email to %s" % email)
         postgres.set_sent_flag(email, 0)
         postgres.set_visited(ticket, force=True)
 
