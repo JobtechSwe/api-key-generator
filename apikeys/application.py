@@ -19,7 +19,7 @@ def hello():
 
 @app.route('/register', methods=['POST'])
 def register():
-    log.debug("Serving request for /register: %s" % request)
+    log.debug("Serving request for /register: %s" % request.values)
     email = request.form['email']
     appids = request.form.getlist('appid')
     if not request.form.get('approve', None):
