@@ -1,10 +1,14 @@
 import logging
+from jobtech.common.customlogging import configure_logging
 from apikeys import app
 from apikeys.repository import update_elastic, postgres
 from flask import render_template, request, flash, abort, redirect
 
 
+configure_logging([__name__.split(".")[0]])
 log = logging.getLogger(__name__)
+log.info(logging.getLevelName(log.getEffectiveLevel()) + ' log level activated')
+log.info("Starting %s" % __name__)
 
 
 @app.route('/', methods=['GET'])

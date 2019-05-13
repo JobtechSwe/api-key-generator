@@ -77,10 +77,8 @@ def set_visited(key, force=False):
         if not force:
             sql += " AND visited is null"
     else:
-        print("Nothing to set")
+        log.debug("Called set_visited without key.")
         return
-
-    print("SQL", sql)
 
     cur = pg_conn.cursor()
     cur.execute(sql, (key, ))
@@ -180,5 +178,3 @@ def sanity_check():
                 """.format(table=APPLICATION_TABLE),
             )
         )
-
-
