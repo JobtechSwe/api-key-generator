@@ -47,7 +47,7 @@
                             <textarea class="style" rows="4" cols="80" name="description"placeholder="Description of the application using the API"  id="description"></textarea><br/>
 
                             <h3 >Choose the APIs you want</h3>
-                            <hr >
+                            
                             <div class="api">
                                 <input type="checkbox" name="appid" value="3" id="appid">
                                 <label for="appid">Job Search API</label><br/>
@@ -55,14 +55,11 @@
                                 <label for="appid">JobTech Taxonomy API</label><br/>
                                 <input type="checkbox" name="appid" value="16" id="appid">
                                 <label for="appid">Job Search Bulk API</label><br/>
+                           
+                                 <input type="checkbox" name="approve" value="1" id="approve" required oninvalid="this.setCustomValidity('You must approve that provided data will be stored')" oninput="setCustomValidity('')" >
+                                 <label for="approve">By requesting the API Key, you are authorizing the data you are providing, <br>
+                                                 will be stored as long as you have access to the API(s).</label><br/>
                             </div>
-                            <hr/>
-                            <div class="api">
-                            <input type="checkbox" name="approve" value="1" id="approve" required oninvalid="this.setCustomValidity('You must approve that provided data will be stored')" oninput="setCustomValidity('')" >
-                            <label for="approve">By requesting the API Key, you are authorizing the data you are providing, <br>
-                                                 will be stored as long as you have access to API(s).</label><br/>
-                            </div>
-                            <hr/>
                             <button type="submit" name="skicka" value="Apply">Submit </button>
                             <button type="reset">Reset </button>
 
