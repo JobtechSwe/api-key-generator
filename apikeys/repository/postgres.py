@@ -66,7 +66,7 @@ def get_keys_for_api(api_id):
     sql = f"SELECT apikey,id,application_id FROM {TABLE_NAME} WHERE api_id & %s = %s"
     res = query(sql, (api_id, api_id,))
     if res:
-        return [{"key": key[0], "id": key[1], "app": key[2]} for key in res]
+        return {key[0]: {"id": key[1], "app": key[2]} for key in res}
     return []
 
 

@@ -10,4 +10,4 @@ def update_elastic():
     for app in apps:
         keys = postgres.get_keys_for_api(app['id'])
         log.info("Updating keys for %s" % app['name'])
-        elastic.store_keys(app['name'], {"validkeys": keys})
+        elastic.store_keys(app['name'], keys)
