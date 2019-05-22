@@ -63,10 +63,10 @@ def get_key_for_ticket(ticket):
 
 
 def get_keys_for_api(api_id):
-    sql = f"SELECT apikey FROM {TABLE_NAME} WHERE api_id & %s = %s"
+    sql = f"SELECT apikey,id,application_id FROM {TABLE_NAME} WHERE api_id & %s = %s"
     res = query(sql, (api_id, api_id,))
     if res:
-        return [key[0] for key in res]
+        return [{"key": key[0], "id": key[1], "app": key[2]} for key in res]
     return []
 
 
@@ -94,18 +94,19 @@ def get_available_applications():
     return []
 
 
-def store_key(apikey, email, userinfo, api_id=0):
+def store_key(apikey, email, application_id, userinfo, api_id=0):
     ticket = generate_ticket()
+    print("STORING", apikey, email, application_id, userinfo, api_id)
 
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
-                " (apikey, email, userinfo, api_id, ticket)"
-                " VALUES (%s, %s, %s, %s, %s)"
-                " ON CONFLICT (apikey) DO UPDATE"
-                " SET email = %s, userinfo = %s,"
+                " (apikey, email, application_id, userinfo, api_id, ticket)"
+                " VALUES (%s, %s, %s, %s, %s, %s)"
+                " ON CONFLICT (email) DO UPDATE"
+                " SET email = %s, application_id = %s, userinfo = %s,"
                 " api_id = apikeys.api_id|%s, ticket = %s, visited = null, sent = 0",
-                (apikey, email, json.dumps(userinfo), api_id, ticket,
-                 email, json.dumps(userinfo), api_id, ticket))
+                (apikey, email, application_id, json.dumps(userinfo), api_id, ticket,
+                 email, application_id, json.dumps(userinfo), api_id, ticket))
     pg_conn.commit()
     return ticket
 
@@ -149,6 +150,7 @@ def sanity_check():
                     CREATE TABLE {table} (
                         apikey VARCHAR(200) NOT NULL PRIMARY KEY,
                         api_id INTEGER NOT NULL,
+                        application_id VARCHAR(256) NOT NULL,
                         userinfo JSONB,
                         email VARCHAR(256) NOT NULL,
                         ticket VARCHAR(32),
