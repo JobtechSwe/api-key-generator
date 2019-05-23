@@ -148,11 +148,12 @@ def sanity_check():
             (
                 """
                     CREATE TABLE {table} (
-                        apikey VARCHAR(200) NOT NULL PRIMARY KEY,
+                        id INTEGER SERIAL PRIMARY KEY,
+                        apikey VARCHAR(256) NOT NULL UNIQUE,
                         api_id INTEGER NOT NULL,
                         application_id VARCHAR(256) NOT NULL,
                         userinfo JSONB,
-                        email VARCHAR(256) NOT NULL,
+                        email VARCHAR(256) NOT NULL UNIQUE,
                         ticket VARCHAR(32),
                         sent INTEGER NOT NULL DEFAULT 0,
                         visited TIMESTAMP WITH TIME ZONE
