@@ -13,5 +13,5 @@ else:
 
 
 def store_keys(api, keys):
-    doc_id = "apikeys_%s" % api
-    es.index(index='system', id=doc_id, body=keys)
+    doc_id = api
+    es.index(index='apikeys', id=doc_id, body=keys)
