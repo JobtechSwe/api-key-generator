@@ -36,8 +36,8 @@ def send_link_email(recipient, key):
                     % (recipient, str(e)))
         return False
     except Exception as e:
-        log.warning("Failed to send email %s: %s. Trying again later."
-                    % (recipient, str(e)))
+        log.error("Failed to send email %s: %s. Trying again later."
+                  % (recipient, str(e)))
         return False
     return True
 
