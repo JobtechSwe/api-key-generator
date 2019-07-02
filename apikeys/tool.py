@@ -22,11 +22,11 @@ def send_link_email(recipient, key):
         server.starttls(context=context)
         server.ehlo()
         server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-        message = "Subject: Your API key for JobtechDev\n\n" + \
+        message = "To: {recipient}\nSubject: Your API key for JobtechDev\n\n" + \
                   "Get your API key here: {host}/key/{key}"
 
-        server.sendmail(settings.MAIL_SENDER, recipient, message.format(host=host,
-                                                                        key=key))
+        server.sendmail(settings.MAIL_SENDER, recipient,
+                        message.format(recipient=recipient, host=host, key=key))
 
         log.info(f"Sending email to {recipient} containing link {host}/key/{key}")
     except smtplib.SMTPRecipientsRefused as e:
