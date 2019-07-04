@@ -54,7 +54,7 @@ def set_sent_flag(email, flag=0):
 
 def get_key_for_ticket(ticket):
     sql = f"SELECT apikey FROM {TABLE_NAME} WHERE ticket = %s" + \
-          " AND (visited > (now() - interval '10 mins') " + \
+          " AND (visited > (CURRENT_TIMESTAMP - interval '10 mins') " + \
           " OR visited IS NULL)"
     res = query(sql, (ticket, ))
     if res:
@@ -72,7 +72,7 @@ def get_keys_for_api(api_id):
 
 def set_visited(key, force=False):
     if key:
-        sql = f"UPDATE {TABLE_NAME} SET visited = now()" + \
+        sql = f"UPDATE {TABLE_NAME} SET visited = CURRENT_TIMESTAMP" + \
             " WHERE ticket = %s"
         if not force:
             sql += " AND visited is null"
