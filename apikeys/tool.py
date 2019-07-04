@@ -16,14 +16,22 @@ def send_link_email(recipient, key):
         log.error("No HOST_URL environment variable specified")
         sys.exit(1)
     try:
+        if not host.startswith('http'):
+            host = 'https://' + os.getenv('HOST_URL')
+
         context = ssl.create_default_context()
         server = smtplib.SMTP(settings.MAIL_HOST, settings.MAIL_PORT)
         server.ehlo()
         server.starttls(context=context)
         server.ehlo()
         server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
-        message = "To: {recipient}\nSubject: Your API key for JobtechDev\n\n" + \
-                  "Get your API key here: {host}/key/{key}"
+        message = "To: {recipient}\nSubject: Your link to API key for JobtechDev\n\n" + \
+                  "Thank You for building applications using JobTech's APIs.\n\n " + \
+                  "We hope You will find them easy to use and that Your application will help" + \
+                  " employees and employers to find each other. \n" + \
+                  "By following the link You will get your API key {host}/key/{key}\n" + \
+                  "If You have any questions, please reply to this e-mail. Thank You!\n\n" + \
+                  "Best regards, The JobTech API teams"
 
         server.sendmail(settings.MAIL_SENDER, recipient,
                         message.format(recipient=recipient, host=host, key=key))
