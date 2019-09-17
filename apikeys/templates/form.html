@@ -56,9 +56,11 @@
                                 <input type="checkbox" name="appid" value="16" id="appid">
                                 <label for="appid">Job Search Bulk API</label><br/>
                            
-                                 <input type="checkbox" name="approve" value="1" id="approve" required oninvalid="this.setCustomValidity('You must approve that provided data will be stored')" oninput="setCustomValidity('')" >
-                                 <label for="approve">By requesting the API Key, you are authorizing the data you are providing, <br>
+                                 <input type="checkbox" name="approve_gdpr" value="1" id="approve_gdpr" required oninvalid="this.setCustomValidity('You must approve that provided data will be stored')" oninput="setCustomValidity('')" >
+                                 <label for="approve_gdpr">By requesting the API Key, you are authorizing the data you are providing, <br>
                                                  will be stored as long as you have access to the API(s).</label><br/>
+                                 <input type="checkbox" name="approve_license" value="1" id="approve_license" required oninvalid="this.setCustomValidity('You must approve the license agreement')" oninput="setCustomValidity('')" >
+                                 <label for="approve_license">I approve your usage license.</label><br/>
                             </div>
                             <button type="submit" name="skicka" value="Apply">Submit </button>
                             <button type="reset">Reset </button>
