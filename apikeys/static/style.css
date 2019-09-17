@@ -92,6 +92,14 @@ body {
     width:15px;
 }
 
+#approve_gdpr{
+    width:15px;
+}
+
+#approve_licence{
+    width:15px;
+}
+
 .style {
     background-color: black;
     color: white;

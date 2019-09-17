@@ -27,9 +27,9 @@ def register():
         log.debug("User has not approved GDPR, sending back to base page")
         flash("You must approve our handling of your details.")
         return redirect("/")
-    if not request.form.get('approve_license', None):
-        log.debug("User has not approved license, sending back to base page")
-        flash("You must approve our our usage license.")
+    if not request.form.get('approve_licence', None):
+        log.debug("User has not approved licence, sending back to base page")
+        flash("You must approve our usage licence.")
         return redirect("/")
     if not email:
         log.debug("User has provided an email address, sending back to base page")
