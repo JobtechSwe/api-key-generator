@@ -96,7 +96,7 @@ def get_available_applications():
 
 def store_key(apikey, email, application_id, userinfo, api_id=0):
     ticket = generate_ticket()
-    print("STORING", apikey, email, application_id, userinfo, api_id)
+    log.debug("STORING apikey %s, email %s, user %s, api_id %s" % (apikey, email, userinfo, api_id))
 
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
