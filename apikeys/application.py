@@ -23,9 +23,13 @@ def register():
     email = request.form['email']
     appids = request.form.getlist('appid')
     application_name = request.form.get('applicationname')
-    if not request.form.get('approve', None):
+    if not request.form.get('approve_gdpr', None):
         log.debug("User has not approved GDPR, sending back to base page")
         flash("You must approve our handling of your details.")
+        return redirect("/")
+    if not request.form.get('approve_license', None):
+        log.debug("User has not approved license, sending back to base page")
+        flash("You must approve our our usage license.")
         return redirect("/")
     if not email:
         log.debug("User has provided an email address, sending back to base page")
