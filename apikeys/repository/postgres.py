@@ -148,7 +148,7 @@ def sanity_check():
             (
                 """
                     CREATE TABLE {table} (
-                        id INTEGER SERIAL PRIMARY KEY,
+                        id SERIAL PRIMARY KEY,
                         apikey VARCHAR(256) NOT NULL UNIQUE,
                         api_id INTEGER NOT NULL,
                         application_id VARCHAR(256) NOT NULL,
