@@ -1,33 +1,25 @@
 
-label {
-    padding: 10px 0px 1px 6px;
-    display: inline-block;
-    text-align: left;
-    width: 40%;
+
+.avtal {
+    width:70%;
+    margin-left: 80px;
+    margin-top: 40px;
+    margin-right: 100px;
     font-family: "Open Sans", sans-serif;
-    font-weight: 500 ;
+    margin-bottom: 60px ;
 }
-input[type=text]{
 
-    text-align: left;
-    margin-bottom: 8px;
-
+ol.c {
+    list-style-type: upper-roman;
 }
+ol.p {list-style-type: lower-latin;}
+
+
 img {
     padding-top: 10px;
 }
 
-input, select, textarea {
-    width: 40%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: vertical;
-    background-color: black;
-    color: white;
 
-}
 button {
     margin-top: 20px;
     margin-right: 8px;
@@ -38,24 +30,7 @@ button {
     width: 100px;
 
 }
-.form {
-    width: 100%;
-    margin: auto;
-    background-color: black;
-    display:block;
-    padding-top: 30px;
-    padding-left: 30px;
-    padding-bottom: 30px;
-    border-radius: 8px;
 
-}
-.header {
-    text-align: center;
-
-}
-.api {
-    padding: 0px 0px 0px 19px;
-}
 
 hr {
     border-color:#733ACA;
@@ -80,21 +55,15 @@ h3 {
     margin-top: 25px;
 }
 body {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     font-family: Open Sans, sans-serif;
 }
 #appid{
     width:15px;
 }
 
-.style {
-    background-color: black;
-    color: white;
-    outline-color: #733ACA;
-    font-family: "Open Sans", sans-serif;
 
-}
 .container{
     max-width: 100%;
     height: auto;
@@ -128,3 +97,17 @@ body {
     color: red;
     border-radius: 2px;
 }
+
+.format {
+    width:70%;
+    margin-left: 80px;
+    margin-top: 40px;
+    margin-right: 100px;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 60px ;
+}
+
+ol.c {
+    list-style-type: upper-roman;
+}
+ol.p {list-style-type: lower-latin;}
