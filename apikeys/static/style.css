@@ -64,6 +64,19 @@ body {
 }
 
 
+#approve{
+    width:15px;
+}
+
+#approve_gdpr{
+    width:15px;
+}
+
+#approve_licence{
+    width:15px;
+}
+
+
 .container{
     max-width: 100%;
     height: auto;

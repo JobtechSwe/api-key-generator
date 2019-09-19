@@ -22,9 +22,14 @@ def register():
     log.debug("Serving request for /register: %s" % request.values)
     email = request.form['email']
     appids = request.form.getlist('appid')
-    if not request.form.get('approve', None):
+    application_name = request.form.get('applicationname')
+    if not request.form.get('approve_gdpr', None):
         log.debug("User has not approved GDPR, sending back to base page")
         flash("You must approve our handling of your details.")
+        return redirect("/")
+    if not request.form.get('approve_licence', None):
+        log.debug("User has not approved licence, sending back to base page")
+        flash("You must approve our usage licence.")
         return redirect("/")
     if not email:
         log.debug("User has provided an email address, sending back to base page")
@@ -38,6 +43,10 @@ def register():
         log.debug("User has not selected an API, sending back to base page")
         flash("You need to select at least one API")
         return redirect("/")
+    if not application_name:
+        log.debug("User has not entered an application name, sending back to base page")
+        flash("You need to enter an application name")
+        return redirect("/")
 
     userinfo = {
         "name": request.form.get('name'),
@@ -48,7 +57,7 @@ def register():
     }
 
     key = postgres.create_api_key(email)
-    ticket = postgres.store_key(key, email, userinfo, app_id)
+    ticket = postgres.store_key(key, email, application_name, userinfo, app_id)
     log.debug("Generated ticket %s for %s" % (ticket, email))
     update_elastic()
 
