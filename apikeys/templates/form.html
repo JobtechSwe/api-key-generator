@@ -72,41 +72,31 @@
                                 </select>
                             </div>
                             <div class="form-group" id="otherFieldGroupDiv">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="companyname">Företagsnamn</label>
-                                        <input class="form-control" type="text" name="companyname" placeholder="Name of your company (Optional)" id="companyname" /><br/>
-                                    </div>
-                                        <div class="col-6">
-                                            <label for="companyaddress">företagets Adress</label>
-                                            <input type="text" class="form-control " id="companyaddress">
-                                        </div>
-                                     </div>
-                            </div>
-                            <div class="form-group" id="otherFieldGroupDiv2">
+                                <label for="companyname">Företagsnamn</label>
+                                <input class="form-control" type="text" name="companyname" placeholder="Name of your company (Optional)" id="companyname" /><br/>
+
+                                <label for="companyaddress">Företagets Adress</label>
+                                <input type="text" class="form-control " id="companyaddress">
+                                
                                 <div class="col-6">
-                                    <label for="bokadress">folkbokföringsadress</label>
-                                    <input type="text" class="form-control w-100" id="bokadress">
+                                    <label for="tel">Telefonnummer (dagtid)</label>
+                                    <input type="text" class="form-control w-100" id="tel">
                                 </div>
                             </div>
-
-
-
-
+                            <div class="form-group" id="otherFieldGroupDiv2">
+                                <label for="bokadress">Folkbokföringsadress</label>
+                                <input type="text" class="form-control w-100" id="bokadress">
+                            </div>
                             <script src="js/hide-show-fields-form.js"></script>
 
                             <br>
                             <label for="applicationname">Namn på din applikation/system </label>
-                            <input class="form-control" type="text" name="applicationname" placeholder="Name of application using the API (required)" id="applicationname" required oninvalid="this.setCustomValidity('Please, enter some kind of application name')" oninput="setCustomValidity('')" /><br/>
+                            <input class="form-control" type="text" name="applicationname" placeholder="namn på den applikations som använder APIet (obligatorisk)" id="applicationname" required oninvalid="this.setCustomValidity('Please, enter some kind of application name')" oninput="setCustomValidity('')" /><br/>
                             <label for="description">Beskrivning av applikation/system avsedd användning av API:et</label>
                             <br>
-                            <textarea class="form-control" rows="4" cols="80" name="description"placeholder="Description of the application using the API"  id="description"></textarea><br/>
+                            <textarea class="form-control" rows="4" cols="80" name="description"placeholder="Beskrivninga va applikationen som använder APIet"  id="description"></textarea><br/>
 
 
-                            <div class="col-6">
-                                <label for="tel">Telefonnummer (dagtid)</label>
-                                <input type="text" class="form-control w-100" id="tel">
-                            </div>
 
 
 
