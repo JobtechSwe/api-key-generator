@@ -23,17 +23,8 @@ def register():
     email = request.form['email']
     appids = request.form.getlist('appid')
     application_name = request.form.get('applicationname')
-    if not request.form.get('approve_gdpr', None):
-        log.debug("User has not approved GDPR, sending back to base page")
-        flash("You must approve our handling of your details.")
-        return redirect("/")
-    if not request.form.get('approve_license', None):
-        log.debug("User has not approved license, sending back to base page")
-        flash("You must approve our our usage license.")
-        return redirect("/")
-    if not email:
-        log.debug("User has provided an email address, sending back to base page")
-        flash("You must provide an email address")
+
+    if not _validate_form(request):
         return redirect("/")
 
     app_id = 0
@@ -51,7 +42,10 @@ def register():
     userinfo = {
         "name": request.form.get('name'),
         "surname": request.form.get('surname'),
-        "company_name": request.form.get('companyname'),
+        "type": "corporation" if request.form.get('corporation', '0') == 1 else "personal",
+        "company_name": request.form.get('company_name'),
+        "address": request.form.get('address'),
+        "phone_number": request.form.get('phone_number'),
         "application_name": request.form.get('applicationname'),
         "description": request.form.get('description'),
     }
@@ -62,6 +56,37 @@ def register():
     update_elastic()
 
     return render_template('registered.html', email=email)
+
+
+def _validate_form(request):
+    if not request.form.get('approve_gdpr'):
+        log.debug("User has not approved GDPR, sending back to base page")
+        flash("You must approve our handling of your details.")
+        return False
+    if not request.form.get('approve_license'):
+        log.debug("User has not approved license, sending back to base page")
+        flash("You must approve our our usage license.")
+        return False
+    if not request.form.get('email'):
+        log.debug("User has provided an email address, sending back to base page")
+        flash("You must provide an email address")
+        return False
+    if request.form.get('corporation', '0') == '1':
+        # Check form for company information
+        if not request.form.get('company_name'):
+            log.debug("No company name provided")
+            flash("You must provide company name")
+            return False
+    if not request.form.get('address'):
+        log.debug("User has not provided an address")
+        flash("You must provide an address")
+        return False
+    if not request.form.get('phone_number'):
+        log.debug("User has not provided a phone number")
+        flash("You must provide a phone number")
+        return False
+
+    return True
 
 
 @app.route("/key/<ticket>", methods=['GET'])
