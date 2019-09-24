@@ -17,7 +17,7 @@ RUN apk update && \
         git && \
      rm -rfv /var/cache/apk/*
 
-ENV TZ=Europe/Paris
+ENV TZ=Europe/Stockholm
 
 COPY . /app
 
@@ -31,7 +31,7 @@ RUN date +"%Y-%m-%dT%H:%M:%S %Z" && \
     chmod -R 775 /usr/lib/python* && \
     chmod -R 775 /var/lib/nginx && \
     chmod -R 777 /var/log/* && \
-    chmod -R 777 /var/tmp/nginx
+    chmod -f -R 777 /var/tmp/nginx || :
 
 WORKDIR /app
 
