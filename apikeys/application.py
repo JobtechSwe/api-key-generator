@@ -39,16 +39,10 @@ def register():
         flash("You need to enter an application name")
         return redirect("/")
 
-    userinfo = {
-        "name": request.form.get('name'),
-        "surname": request.form.get('surname'),
-        "type": "corporation" if request.form.get('corporation', '0') == 1 else "personal",
-        "company_name": request.form.get('company_name'),
-        "address": request.form.get('address'),
-        "phone_number": request.form.get('phone_number'),
-        "application_name": request.form.get('applicationname'),
-        "description": request.form.get('description'),
-    }
+    userinfo = {k: request.form.get(k) for k,v in dict(request.form).items()
+                if k in ['name', 'surname', 'corporation', 'companyname',
+                         'company_phone_number', 'company_address', 'phone_number',
+                         'address', 'applicationname', 'description']}
 
     key = postgres.create_api_key(email)
     ticket = postgres.store_key(key, email, application_name, userinfo, app_id)
@@ -63,7 +57,7 @@ def _validate_form(req):
         log.debug("User has not approved GDPR, sending back to base page")
         flash("You must approve our handling of your details.")
         return False
-    if not req.form.get('approve_license'):
+    if not req.form.get('approve_licence'):
         log.debug("User has not approved license, sending back to base page")
         flash("You must approve our our usage license.")
         return False
@@ -73,18 +67,28 @@ def _validate_form(req):
         return False
     if req.form.get('corporation', '0') == '1':
         # Check form for company information
-        if not req.form.get('company_name'):
+        if not req.form.get('companyname'):
             log.debug("No company name provided")
             flash("You must provide company name")
             return False
-    if not req.form.get('address'):
-        log.debug("User has not provided an address")
-        flash("You must provide an address")
-        return False
-    if not req.form.get('phone_number'):
-        log.debug("User has not provided a phone number")
-        flash("You must provide a phone number")
-        return False
+        if not req.form.get('company_address'):
+            log.debug("User has not provided an address")
+            flash("You must provide an address")
+            return False
+        if not req.form.get('company_phone_number'):
+            log.debug("User has not provided a phone number")
+            flash("You must provide a phone number")
+            return False
+
+    else:
+        if not req.form.get('address'):
+            log.debug("User has not provided an address")
+            flash("You must provide your home address")
+            return False
+        if not req.form.get('phone_number'):
+            log.debug("User has not provided a phone number")
+            flash("You must provide your phone number")
+            return False
 
     return True
 
@@ -115,17 +119,3 @@ def retrieve_key():
         postgres.set_visited(ticket, force=True)
 
         return render_template('registered.html', email=email)
-
-
-@app.route("/showbits/<number>", methods=['GET'])
-def showbits(number):
-    list = [int(x) for x in "{:08b}".format(int(number))]
-    print(list)
-    n = 0
-    ids = []
-    for l in list:
-        num = (l*2)**(7-n)
-        print(num)
-        ids.append(num)
-        n += 1
-    return str(ids)

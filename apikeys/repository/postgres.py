@@ -96,7 +96,7 @@ def get_available_applications():
 
 def store_key(apikey, email, application_id, userinfo, api_id=0):
     ticket = generate_ticket()
-    print("STORING", apikey, email, application_id, userinfo, api_id)
+    log.debug("STORING apikey %s, email %s, user %s, api_id %s" % (apikey, email, userinfo, api_id))
 
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
@@ -148,7 +148,7 @@ def sanity_check():
             (
                 """
                     CREATE TABLE {table} (
-                        id INTEGER SERIAL PRIMARY KEY,
+                        id SERIAL PRIMARY KEY,
                         apikey VARCHAR(256) NOT NULL UNIQUE,
                         api_id INTEGER NOT NULL,
                         application_id VARCHAR(256) NOT NULL,

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <title>Your API key</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body bgcolor="black">
+    <img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
+    <div class="container">
+        <div class="form">
+            <div class="header">
+                <h1>This is your API key:</h1>
+                <hr>
+                <div id="box">
+                <code id="keystyle">{{ key }}</code>
+            </div>
+            <p>Copy your key to a safe place. This page is only avaliable for 10 minutes after your first visit.</p>
+
+            <p>To get access to the API, enclose the header parameter <code>api-key:{{key}}</code> to your request.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

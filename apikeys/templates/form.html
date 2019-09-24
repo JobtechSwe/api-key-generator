@@ -1,45 +1,49 @@
 <!doctype html>
-<html>
+<html lang="sv">
 <head>
+    <meta charset="utf-8">
+    <style>
+        .modal-dialog{
+
+        }
+        .modal-body{
+            height: 500px;
+
+            overflow: auto;
+        }
+    </style>
     <title>API keys</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <script type="text/javascript">
-
-    function showHideInfo() {
-        if (document.getElementById('corporate_application').checked) {
-            personals = document.getElementsByClassName("personal_information")
-            for (var i = 0; i < personals.length; i++) {
-                personals[i].style.display = "none"
-            }
-            corporates = document.getElementsByClassName("company_information")
-            for (var i = 0; i < corporates.length; i++) {
-                corporates[i].style.display = "block"
-            }
-        } else {
-            personals = document.getElementsByClassName("personal_information")
-            for (var i = 0; i < personals.length; i++) {
-                personals[i].style.display = "block"
-            }
-            corporates = document.getElementsByClassName("company_information")
-            for (var i = 0; i < corporates.length; i++) {
-                corporates[i].style.display = "none"
-            }
-        }
-    }
-
-    </script>
 
 </head>
-<body>
-    <img style="position: left" src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
-    <div class="container">
-        <div class="form">
-            <div class="header">
-                <h1>Apply for API key</h1>
-                <hr >
-                <p > This is where you apply for JobTech API keys</p>
 
+
+<body>
+    <img style="position: left" src="{{ url_for('static', filename='images/jobtechdev_white.png') }}" alt="jobtech logo">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
+            <div class="form">
+            <div class="header">
+
+                <h2> TJÄNSTEN JOB SEARCH</h2>
+
+                    <p>  Arbetsförmedlingen har i uppdrag att förbättra arbetsmarknadens funktionssätt genom att effektivt sammanföra dem som söker arbete med dem som söker arbetskraft samt bidra till en hållbar och långsiktig sysselsättningsökning.
+                        Arbetsförmedlingen har därmed utvecklat och tagit fram digitala verktyg och tjänster som syftar till att effektivisera och främja tillgången och användning av sysselsättningsrelaterad information och data som myndigheten förmedlar till allmänheten.</p>
+                    <p>Arbetsförmedlingen erbjuder tjänsten Job Search, en sökmotor som möjliggör för dig som utvecklar tjänster till slutanvändarsystem avsedda för bland annat hantering och förmedling av arbetsplatsannonser att inhämta uppgifter från Arbetsförmedlingens tjänst Platsbanken. I tjänsten Job Search ingår bland annat ett särskilt applikationsprogrammeringsgränssnitt (API) till tjänst Platsbanken.</p>
+                    <p>Information om Arbetsförmedlingens öppna API:er finns i vår utvecklingsportal: www.jobtechdev.se.
+                        I utvecklingsportalen hittar du all information och dokumentation om bl.a. tjänsten Job Search, inklusive teknisk dokumentation och tjänstebeskrivning samt exempelkod.
+                        Du hittar även de allmänna villkor, riktlinjer och instruktioner som gäller för tjänsten och för att för att få tillgång till det öppna API:et.</p>
+                        Så här behandlar vi dina <a href="https://arbetsformedlingen.se/om-webbplatsen/juridisk-information">personuppgifter</a> när du anmäler för att få tillgång till Arbetsförmedlingens tjänster och öppna API:er eller i övrigt kontaktar oss.
+
+                <br>
+                <br>
+                <h3>Apply for API key</h3>
 
                     <div>
                     {% with messages = get_flashed_messages() %}
@@ -52,62 +56,79 @@
                     {% endif %}
                 {% endwith %}
                         <form method="post" action="/register">
-                            <label for="email">E-mail</label>
+                            <label  for="email">E-mail</label>
                             <br>
-                            <input class="style" type="email" name="email" placeholder="Your email (required)" required oninvalid="this.setCustomValidity('Please, enter your email')" oninput="setCustomValidity('')"  id="email"  /><br/>
-                            <label for="name">Name</label>
+                            <input class="form-control" type="email" name="email" placeholder="E-postadress (obligatorisk)" required oninvalid="this.setCustomValidity('Please, enter your email')" oninput="setCustomValidity('')"  id="email"  /><br/>
+                            <label  for="name">Namn</label>
                             <br>
-                            <input class="style" type="text" name="name" placeholder="Your name (required)" required oninvalid="this.setCustomValidity('Please, enter your name')" oninput="setCustomValidity('')" id="name"/><br/>
-                            <label for="surname">Surname</label>
+                            <input class="form-control" type="text" name="name" placeholder="Förnamn (obligatorisk)" required oninvalid="this.setCustomValidity('Please, enter your name')" oninput="setCustomValidity('')" id="name"/><br/>
+                            <label for="surname">Efternamn</label>
                             <br>
-                            <input class="style" type="text" name="surname" placeholder="Your surname (required)" required oninvalid="this.setCustomValidity('Please, enter your surname')" oninput="setCustomValidity('')"  id="surname"/><br/>
-                            <label for="corporate_application">Företag eller privat</label><br>
-                            <input class="style" id="corporate_application" onclick="javascript:showHideInfo();" type="radio" name="corporation" value="1" checked="true">Företag</input><br>
-                            <input class="style" id="personal_application" onclick="javascript:showHideInfo();" type="radio" name="corporation" value="0">Privat</input><br>
+                            <input class="form-control" type="text" name="surname" placeholder="Efternamn (obligatorisk)" required oninvalid="this.setCustomValidity('Please, enter your surname')" oninput="setCustomValidity('')"  id="surname"/><br/>
 
-                            <div class="company_information">
-                                <label for="company_name">Företagets namn</label><br>
-                                <input class="style" type="text" name="company_name" placeholder="Företagsnamn" id="company_name" /><br/>
+
+                            <div class="form-group">
+                                <label for="seeAnotherFieldGroup">Privat eller företag</label>
+                                <select class="form-control" name="corporation" id="seeAnotherFieldGroup">
+                                    <option value="0">Privat</option>
+                                    <option value="1">Företag</option>
+                                </select>
                             </div>
 
-                            <label class="personal_information" for="address">Folkbokföringsadress</label>
-                            <label class="company_information" for="address">Företagets adress</label>
+
+                            <div class="form-group" id="otherFieldGroupDiv">
+                                <label for="companyname">Företagsnamn</label>
+                                <input class="form-control" type="text" name="companyname" placeholder="Företagsnamn" id="companyname" />
+                                <br>
+
+                                <label for="companyaddress">Företagets Adress</label>
+                                <input type="text" class="form-control" name="company_address" placeholder="Företagets adress" id="companyaddress">
+                                <br>
+
+                                <label for="telcomp">Telefonnummer (dagtid)</label>
+                                <input type="text" class="form-control" name="company_phone_number" placeholder="Ange telefonnummer" id="telcomp">
+
+                            </div>
+
+                            <div class="form-group" id="otherFieldGroupDiv2">
+                                <label for="bokadress">Folkbokföringsadress</label>
+                                <input type="text" class="form-control" name="address" placeholder="Ange folkbokföringsadress" id="bokadress">
+                                <br>
+
+                                <label for="tel">Telefonnummer (dagtid)</label>
+                                <input type="text" class="form-control" name="phone_number" placeholder="Ange telefonnummer" id="tel">
+
+                            </div>
+                            <!-- <script src="../static/js/hide-show-fields-form.js"></script> -->
+                            <script src="{{ url_for('static', filename='js/hide-show-fields-form.js') }}"></script>
                             <br>
-                            <input class="style" type="text" id="address" name="address" placeholder="Adress"><br>
-
-                            <label class="company_information" for="phone_number">Företagets telefonnummer</label>
-                            <label class="personal_information" for="phone_number">Telefonnummer (dagtid)</label>
+                            <label for="applicationname">Namn på din applikation/system </label>
+                            <input class="form-control" type="text" name="applicationname" placeholder="Namn på den applikations som använder APIet (obligatorisk)" id="applicationname" required oninvalid="this.setCustomValidity('Please, enter some kind of application name')" oninput="setCustomValidity('')" /><br/>
+                            <label for="description">Beskrivning av applikation/system avsedd användning av API:et</label>
                             <br>
-                            <input class="style" type="text" id="phone_number" name="phone_number" placeholder="Telefonnummer"><br>
+                            <textarea class="form-control" rows="4" cols="80" name="description" placeholder="Beskrivning av applikationen som använder APIet"  id="description"></textarea><br/>
 
 
-
-
+                            <h3 >Välj API</h3>
                             
-                            
-                            
-                            <label for="applicationname">Application Name</label>
-                            <br>
-                            <input class="style" type="text" name="applicationname" placeholder="Name of application using the API (required)" id="applicationname" required oninvalid="this.setCustomValidity('Please, enter some kind of application name')" oninput="setCustomValidity('')" /><br/>
-                            <label for="description">Description (please be brief)</label>
-                            <br>
-                            <textarea class="style" rows="4" cols="80" name="description"placeholder="Description of the application using the API"  id="description"></textarea><br/>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="appid" value="3" id="jobsearch" checked="true">
+                                    <label class="form-check-label" for="jobsearch">Job Search API</label><br/>
+                                    <input class="form-check-input" type="checkbox" name="appid" value="8" id="tax" checked="true">
+                                    <label class="form-check-label" for="tax">JobTech Taxonomy API</label><br/>
+                                    <input class="form-check-input" type="checkbox" name="appid" value="16" id="bulk" checked="true">
+                                    <label class="form-check-label" for="bulk">Job Stream Bulk API</label><br/>
 
-                            <h3 >Choose the APIs you want</h3>
-                            
-                            <div class="api">
-                                <input type="checkbox" name="appid" value="3" id="appid" checked="true">
-                                <label for="appid">Job Search API</label><br/>
-                                <input type="checkbox" name="appid" value="8" id="appid" checked="true">
-                                <label for="appid">JobTech Taxonomy API</label><br/>
-                                <input type="checkbox" name="appid" value="16" id="appid" checked="true">
-                                <label for="appid">Job Search Bulk API</label><br/>
-                           
-                                 <input type="checkbox" name="approve_gdpr" value="1" id="approve_gdpr" required oninvalid="this.setCustomValidity('You must approve that provided data will be stored')" oninput="setCustomValidity('')" >
-                                 <label for="approve_gdpr">By requesting the API Key, you are authorizing the data you are providing, <br>
-                                                 will be stored as long as you have access to the API(s).</label><br/>
-                                 <input type="checkbox" name="approve_license" value="1" id="approve_license" required oninvalid="this.setCustomValidity('You must approve the license agreement')" oninput="setCustomValidity('')" >
-                                 <label for="approve_license">I approve your usage license.</label><br/>
+
+                                     <input class="form-check-input" type="checkbox" name="approve_licence" value="1" id="approve_licence" required oninvalid="this.setCustomValidity('Du måste läsa och godkänna avtalet')" >
+
+                                    <label class="form-check-label" for="approve_licence">Jag anmäler mig härmed för att få tillgång till tjänsten Job Search och accepterar de   <a class="btn-link" href="" data-toggle="modal" data-target="#licence"> allmänna villkoren</a> för tjänsten </label><br/>
+                                    <input class="form-check-input" type="checkbox" name="approve_gdpr" value="1" id="approve_gdpr" required oninvalid="this.setCustomValidity('You must approve that provided data will be stored')" oninput="setCustomValidity('')" >
+                                    <label class="form-check-label"  for="approve_gdpr">Jag samtycker härmed till att Arbetsförmedlingen behandlar mina personuppgifter för att ge mig tillgång till tjänsten och API:et enligt de allmänna villkoren för tjänsten Job Search.
+                                        Jag kan när som helst återkalla mitt samtycke genom att kontakta Arbetsförmedlingen via länken ”Kontakta oss” som finns i Utvecklingsportalen. .</label><br/>
+                                </div>
+
                             </div>
                             <button type="submit" name="skicka" value="Apply">Submit </button>
                             <button type="reset">Reset </button>
@@ -116,8 +137,169 @@
                     </div>
                 </div>
             </div>
+    </div>
+    </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="licence" tabindex="-1" role="dialog" aria-labelledby="licenceLable" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="licenceLable">ALLMÄNNA VILLKOR FÖR ANVÄNDNING AV TJÄNSTER JOB SEARCH OCH JOBSTREAM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalLicence" onscroll="console.log(this.scrollTop);if(this.scrollTop+this.offsetHeight>=this.scrollHeight){$('#agree').removeAttr('disabled')}">
+                    <div class="format">
+
+
+                        <h4>(Version 1.1 gäller fr.om. 2019-09-23 )</h4>
+                        <h3>1. OM TJÄNSTERNA JOB SEARCH OCH JOB STREAM    </h3>
+                        <p>1.1.	Arbetsförmedlingen har i enlighet med förordningen (2007:1030) med instruktion för Arbetsförmedlingen till uppdrag att verka för att förbättra arbetsmarknadens funktionssätt genom att effektivt sammanföra dem som söker arbete med dem som söker arbetskraft samt bidra till en hållbar och långsiktig sysselsättningsökning.</p>
+                        <p>1.2. Arbetsförmedlingen har tagit fram diverse digitala verktyg och tjänster, såsom Job Search och Job Stream, vilka syftar till att effektivisera och främja enskildas och näringslivets tillgång och användning av sysselsättningsrelaterad information och data som myndigheten förmedlar till allmänheten genom tjänsten Platsbanken.</p>
+
+                        <p>1.3.	Arbetsförmedlingens tjänster Job Search och Job Stream är en sökmotor och en annons ström som möjliggör för användare, som vill utveckla egna produkter eller tjänster, att ansluta sig genom ett särskilt applikationsprogrammeringsgränssnitt till Arbetsförmedlingens tjänst Platsbanken i syfte att inhämta data och uppgifter från arbetsplatsannonser som tillgängliggörs för allmänheten.</p>
+                        <p>1.4.	Tjänsten är primärt avsedd för användare som avser utveckla, bearbeta, förädla eller förmedla egna sysselsättningsrelaterade produkter eller tjänster. Tjänsten är även tillgänglig för enskilda som väljer att ansluta sig enligt villkoren nedan.  </p>
+
+                        <h3>2. DEFINITIONER </h3>
+                        <p>2.1.	I detta Avtal används följande beteckningar med nedan angivna betydelse.</p>
+                        <ol class="p">
+                            <li>Allmänna villkoren för Arbetsförmedlingens tjänst Platsbanken avser villkoren och krav för företag att publicera arbetsplatsannonser i Arbetsförmedlingens tjänst Platsbanken. Dessa allmänna villkor finns tillgängliga på Arbetsförmedlingens webbplats: www.arbetsformedlingen.se.</li>
+
+                            <li>Ansluten användare avser användare av Job Search och Job Stream som anmälts och beretts tillgång till Tjänsten genom att ha tilldelats nycklar för API:erna.</li>
+
+                            <li>Avtalet avser dessa allmänna villkor med eventuella bilagor, särskilda villkor för API:erna, Allmänna villkoren för Arbetsförmedlingens tjänst Platsbanken, och Arbetsförmedlingens vid var tid gällande policyhandlingar, riktlinjer och instruktioner för användning av Tjänsterna och API:erna.</li>
+
+                            <li>API:erna avser Arbetsförmedlingens öppna API:er för Tjänsterna Job Search och Job Stream. Med begreppet API menas applikationsprogrammeringsgränssnitt</li>
+
+                            <li>API-Innehåll avser den information och data som elektroniskt överförs till den Anslutna användarens system genom API:erna i form av data och uppgifter från arbetsplatsannonser upplagda i Arbetsförmedlingens tjänst Platsbanken.</li>
+
+                            <li>Creative Commons Erkännande-DelaLika (CC-BY-SA) avser särskilda licensvillkor som följer av den icke-statliga organisationen Creative Common. Licensvillkoren CC-BY-SA innebär:</li>
+                            <ol class="c">
+                                <li>	att upphovsman till ett verk i API-innehållet ska erkännas i samband med att verket används, sprids, bearbetas, och</li>
+                                <li>    att Arbetsförmedlingen tillåter Anslutna användare att bearbeta eller bygga vidare på verk som Arbetsförmedlingen fritt förfogar över.</li>
+                                <li>    anslutna användare som bearbetar och vidareanvänder Arbetsförmedlingens verk eller resultatet därav måste göra det under samma licens. Licensvillkoren CC-BY-SA finns tillgängliga på följande webbplats: https://creativecommons.org/licenses/by-sa/4.0/legalcode.</li>
+                            </ol>
+
+                            <li>Slutanvändarsystem avser den som genom API:erna läser in API-innehåll för ändamålet att få tillgång till och använda sig av sysselsättningsrelaterad information och data som Arbetsförmedlingen förmedlar genom tjänsten Platsbanken.</li>
+
+                            <li>Auditloggning avser loggning för att förebygga och utreda IT- och informationssäkerhetsincidenter (inbegripet även personuppgiftsincidenter). Säkerhetsloggar bevaras i upp till [fem (5) år].</li>
+
+                            <li>Utvecklingsportal avser Arbetsförmedlingens webbplats där information och dokumentation kring Arbetsförmedlingens öppna API:er för Tjänsten publiceras. Utvecklingsportalen nås genom länken: www.jobbtechdev.se.</li>
+
+                            <li>Tjänstebeskrivning avser den kompletta beskrivningen av Tjänsten, API:et och API-innehållet som anges i Utvecklingsportalen.</li>
+
+                        </ol>
+                        <h3>3. TILLGÅNG TILL TJÄNSTEN OCH API:RNA </h3>
+                        <p>3.1.	För att få tillgång till Tjänsterna måste användaren inkomma med en begäran om anslutning. Genom att begära anslutning till Tjänsten godkänner användaren Avtalet. Inkommen begäran om anslutning till Tjänsten anses utgöra allmän handling i enlighet med 2 kap. 3 § i tryckfrihetsförordningen (1949:105).</p>
+                        <p>3.2.	I syfte att upprätthålla en hög grad av säkerhet och tillförlitlighet beträffande tillhandahållandet och nyttjandet av Tjänsterna ska användaren i samband med anslutningen verifiera sin identitet genom att lämna korrekta uppgifter.</p>
+                        <p>3.3.	Avtal gäller från och med att Ansluten användare accepterar Avtalet och samtycker till behandling av dennes personuppgifter och är giltigt så länge Ansluten användare använder Tjänsterna, såvida inte Avtalet sägs upp i förtid i enlighet med villkoren i detta Avtal.</p>
+                        <p>3.4.	Vid anslutning till Tjänsterna bereds den Anslutna användaren tillgång till Tjänsterna genom att tilldelas nycklar för API:et. Tjänsterna och de öppna API:erna som Ansluten användare bereds tillgång till får användas endast i enlighet med Avtalet och vid var tid gällande policyhandlingar och instruktioner för användning samt tillämpliga författningar och myndighetsbeslut.</p>
+                        <p>3.5.	Arbetsförmedlingen tillhandahåller Tjänsterna och tillhörande handlingar (inbegripet bl.a. teknisk information om Tjänsterna och API:erna) via Utvecklingsportalen. I Utvecklingsportalen kan användarna utforska dokumentationen för Tjänsterna och API:erna och se hur de används och fungerar.</p>
+
+                        <h3>4. ARBETSFÖRMEDLINGENS ÅTAGANDEN</h3>
+                        <p>4.1.	Arbetsförmedlingen har ett övergripande ansvar för att säkerställa att Anslutna användare som åtagit sig att följa Avtalet får ansluta sig till API:erna. Arbetsförmedlingen ansvarar för att Tjänsterna och API:erna är utformat i enlighet med vid var tid gällande Tjänstebeskrivningar.</p>
+                        <p>4.2.	Arbetsförmedlingen ansvarar för kontroll av Anslutna användarens nyttjande av API:erna för att säkerställa att denne följer de villkor och krav som framgår av Avtalet.</p>
+
+                        <h3>5.	ANVÄNDNING AV TJÄNSTERNA OCH API:ERNA </h3>
+                        <p>5.1.	 Ansluten användare får inte    använda API:erna och API-innehållet för sådana ändamål som kan få en negativ påverkan på förtroendet för Arbetsförmedlingens verksamhet. Nyttjandet av API:erna och API-innehållet får inte heller missbrukas på sådant sätt att det påverkar tillgängligheten för API:erna, till exempel genom att överbelasta anslutningen.</p>
+                        <p>5.2.	Ansluten användare ska, vid utformningen av sin produkt eller tjänst, sträva efter att underlätta för Slutanvändarsystemenen att förhålla sig till gällande författningar och myndighetsbeslut samt Arbetsförmedlingens antagna riktlinjer och instruktioner för användning av Tjänsterna, API:erna och API-innehåll.</p>
+                        <p>5.3.	Ansluten användare ska i sin produkt eller tjänst genomföra, sådana innehållskontroller som är nödvändiga eller som instrueras av Arbetsförmedlingen, på API-innehållet innan innehållet läses in till den egna systemmiljön. Vid förekomsten av fel efter genomförd kontroll ska Ansluten användare i sin produkt eller tjänst uppmana Slutanvändarsystemeten att korrigera förekommande fel innan underlaget läses in till den egna systemmiljön.</p>
+                        <p>5.4.	Arbetsförmedlingen förbehåller sig rätten att vid behov komplettera detta avsnitt med ytterligare instruktioner för användning av API:erna eller API-innehåll. Sådana kompletterande instruktioner kommer att tillgängliggöras för och kommuniceras till Anslutna användare genom Utvecklingsportalen.</p>
+
+                        <h3>6. TEKNISKA KRAV OCH BEGRÄNSNINGAR</h3>
+                        <p>6.1.	Ansluten användaren har inte rätt att använda API:erna eller API-innehållet för produkter eller tjänster som riskerar att skada eller stå i strid med Arbetsförmedlingens verksamhet. Detta här innebär bland annat att API:erna och API-innehållet inte får användas för produkter eller tjänster som kan påverka förtroendet för Arbetsförmedlingen negativt, ger brister i IT och informationssäkerhetsskyddet eller står i strid med Avtalet eller bryter mot, eller uppmanar till brott mot, lagar och förordningar.</p>
+                        <p>6.2.	Anslutna användare har inte rätt att på teknisk väg bereda sig obehörig tillgång till, störa eller avaktivera API:erna. Detta innefattar, men är inte begränsat till, användning av virus, maskar, trojaner eller annan skadlig kod i API:erna eller på den webbplats där API:erna tillhandahålls.</p>
+                        <p>6.3.	För att säkerställa och upprätthålla Tjänsterna tillgänglighet och kvalitet förbinder sig Ansluten användare att följa och uppfylla Arbetsförmedlingens vid var tid gällande tekniska instruktioner och krav för Tjänsterna. Den tekniska dokumentationen till Tjänsterna tillhandahålls löpande på anvisad webbplats i Utvecklingsportalen.</p>
+                        <p>6.4.	API-innehållet kan innehålla särskilda kategorier av personuppgifter (såsom information om fysiska personers medlemskap i fackförening) som betraktas som känsliga enligt gällande dataskyddslagstiftning. Ansluten användare får endast behandla sådana kategorier av personuppgifter i API-innehållet för sådana ändamål som är förenliga med Arbetsförmedlingens uppdrag i enlighet med förordningen (2007:1030) med instruktion för Arbetsförmedlingen och enligt Arbetsförmedlingens vid var tid gällande riktlinjer om behandling av personuppgifter i arbetsplatsannonser i tjänsten Platsbanken.</p>
+                        <p>6.5.	Mottagandet av personuppgifter som överförs från Arbetsförmedlingens tekniska miljö till Ansluten användarens system ska ske i en teknisk miljö som fysiskt befinner sig inom EU- eller EES-området, samt efterleva Arbetsförmedlingens instruktioner avseende behandling av personuppgifter enligt Integritetspolicyn och gällande författningar.</p>
+                        <p>6.6.	Anslutna användarens egna produkter och tjänster ska vara utformade så att endast angivet API-innehåll kan inhämtas för den egna produkt- och tjänsteutvecklingen. Inläsning av API-innehåll och utformning av egna produkter eller tjänster ska inte stå i strid med  villkoren i detta Avtal och Allmänna villkoren för Arbetsförmedlingens tjänst Platsbanken.</p>
+                        <p>6.7.	Arbetsförmedlingen förbehåller sig rätten att tillfälligt begränsa tillgängligheten till API:erna i den omfattning som är nödvändig på grund av utveckling, underhåll eller driftmässiga skäl. Arbetsförmedlingen ska sträva efter att minimera avbrottstiden och vidta åtgärder för att Anslutna användare ska vållas minsta möjliga skada.</p>
+
+                        <h4>7. UPPLYSNINGSSKYLDIGHET OCH KONTROLL</h4>
+                        <p>7.1.	Ansluten användare ska säkerställa att Slutanvändarsystem vid var tid informeras om följande:</p>
+                        <ol class="p">
+                            <li>vid tillhandahållande av Tjänsterna samt därefter löpande, informera om förutsättningarna för att använda API:erna och API-innehållet. I informationen ska följande punkter framhävas:</li>
+                            <ol class="c">
+                                <li>att API:erna endast skapar en möjlighet för Slutanvändarsystemen att få tillgång till sysselsättningsrelaterad information och data som Arbetsförmedlingen förmedlar genom Platsbanken;</li>
+                                <li>att API-innehållet kan innehålla immaterialrättsligt skyddade verk och personuppgifter och tillämpliga begränsningar som följer av Avtalet avseende användning och behandling av API-innehåll;</li>
+                                <li>att API:erna utnyttjar data och uppgifter som förmedlats genom Arbetsförmedlingens tjänster Job Search, Job Stream och Platsbanken.</li>
+                            </ol>
+                            <li>innebörden av eventuella felmeddelanden som API:erna returnerar i någon av de tillgängliga operationerna. Operationer samt felmeddelanden finns angivna i antingen Tjänstebeskrivningen eller tekniska dokumentationen till Tjänsten.</li>
+                            <li>att Auditloggning sker hos Arbetsförmedlingen av inkomna förfrågningar via API:et och att dessa bevaras i upp till [fem (5)] år. Säkerhetsloggar används av Arbetsförmedlingen för att förebygga och utreda säkerhetsincidenter.</li>
+                        </ol>
+                        <p>7.2.	För att säkerställa efterlevnaden av Avtalet och vid var tid gällande instruktioner och krav för Tjänsten har Arbetsförmedlingen rätt att i kontrollsyfte inhämta skriftligt underlag från Ansluten användare.
+                            Arbetsförmedlingen har också möjlighet att kalla till möte för genomgång av Avtalets efterlevnad. Arbetsförmedlingen ska ta skälig tid i anspråk av Ansluten användare vid sådana uppföljningsaktiviteter och utföra uppföljningen med god framförhållning och på ett sätt som inte stör
+                            dennes verksamhet i övrigt. Vardera av Arbetsförmedlingen och Ansluten användare ska bära sina egna kostnader för genomförande av kontroll enligt denna punkt.</p>
+                        <p>7.3.	Om det vid kontroll framkommer brister har Arbetsförmedlingen rätt att stänga av Anslutna användarens tillgång till Tjänsten (inbegripet API:erna och API-innehåll) i enlighet med villkoren i detta Avtal.</p>
+
+                        <h3>8. IMMATERIELLA RÄTTIGHETER OCH MARKNADSFÖRING</h3>
+                        <p>8.1.	All kommunikation om, och marknadsföring av Ansluten användarens utvecklade produkter eller tjänster i vilka API:erna används får inte ske på ett sätt som skadar eller riskerar att skada förtroendet för Arbetsförmedlingen eller den som publicera platsannonser i tjänsten Platsbanken.</p>
+                        <p>8.2.	Ansluten användare får inte använda Arbetsförmedlingens kännetecken i informations- och marknadsföringssyfte. Vid eventuell källhänvisning ska ordet ”Arbetsförmedlingen” och tjänsterna ”Job Search” alternativt ”Job Stream” anges beroende på vilken som används. Inget i Avtalet ska innebära att Ansluten användare tilldelas någon äganderätt eller nyttjanderätt till Arbetsförmedlingens firma eller kännetecken, varken under avtalstiden eller tiden därefter.</p>
+                        <p>8.3.	API-innehållet kan innefatta material och verk som tillhör tredje man och som skyddas av immateriella rättigheter, såsom upphovsrätt och varumärkesskydd, och vars nyttjande kan vara föremål för begränsningar enligt villkoren i de Allmänna villkoren för Arbetsförmedlingens tjänst Platsbanken eller på annat sätt.</p>
+                        <p>8.4.	API-innehåll som inte omfattas av punkten 8.3 ovan licensieras i den mån det är förenligt med vid var tid gällande immaterialrättsliga lagstiftning enligt villkoren i Creative Commons Erkännande-DelaLika (CC-BY-SA).</p>
+
+                        <h3>9. BEHANDLING AV PERSONUPPGIFTER</h3>
+                        <p>9.1.	Genom att acceptera Avtalet samtycker Ansluten användare till att Arbetsförmedlingen behandlar de personuppgifter som lämnas till Arbetsförmedlingen vid anslutning till Tjänsten. Samtycket utgör den rättsliga grunden för Arbetsförmedlingens behandling av Anslutna användarens personuppgifter. Arbetsförmedlingen är personuppgiftsansvarig för behandlingen av Anslutna användarens personuppgifter och behandlar dessa personuppgifter i enlighet med gällande dataskyddslagstiftning (inklusive, men inte begränsat till, dataskyddsförordningen (EU) 2016/679, lagen (2018:218) med kompletterande bestämmelser till EU:s dataskyddsförordning, lagen (2002:546) om behandling av personuppgifter i den arbetsmarknadspolitiska verksamheten och förordning (2002:623) om behandling av personuppgifter i den arbetsmarknadspolitiska verksamheten).</p>
+                        <p>9.2.	Ansluten användarens personuppgifter kopplas till de API-nycklar som tillhandahålls. Personuppgifterna tillsammans med API-nycklarna gör det möjligt för Arbetsförmedlingen att identifiera en Ansluten användare i Tjänsten.</p>
+                        <p>9.3.	I samband med tillhandahållandet av Tjänsten behandlar Arbetsförmedlingen Anslutna användarens personuppgifter för följande ändamål:</p>
+                        <ol class="p">
+                            <li>utskick av API-nycklar;</li>
+                            <li>säkerställa att Ansluten användaren inte missbrukar Tjänsterna genom att till exempel överbelasta anslutningen till Tjänsterna;</li>
+                            <li>möjliggöra teknisk support vid användning av Tjänsterna;</li>
+                            <li>skicka information till Ansluten användaren om förändringar i Tjänsterna eller Avtalet;</li>
+                            <li>inhämtning av information om användarupplevelsen, det kan till exempel innebära att Arbetsförmedlingen skickar frågor om hur Ansluten användaren upplever att Tjänsterna fungerar;</li>
+                            <li>övrig kommunikation där Arbetsförmedlingen gör bedömningen att myndigheten har ett intresse eller ett behov av att ta del av informationen, det kan till exempel gälla information om nya API:er eller andra digitala tjänster som kan påverka Ansluten användarens produkter eller tjänster.</li>
+                        <li>Övrig kommunikation där Arbetsförmedlingen gör bedömningen att Ansluten användare har ett intresse eller ett behov av att ta del av informationen, det kan till exempel gälla information om nya API:er eller andra digitala tjänster som kan påverka Ansluten användarens produkter eller tjänster.</li>
+                        </ol>
+                        <p>9.4.	I all kommunikation med Ansluten användaren ska Arbetsförmedlingen sträva efter att förmedla så koncis och relevant information som möjligt till förmån för Ansluten användaren. Ansluten användaren ansvarar för att underrätta Arbetsförmedlingen om förändringar av kontaktuppgifter.</p>
+                        <p>9.5.	Ansluten användarens personuppgifter behandlas endast av Arbetsförmedlingen. Personuppgifter som behandlas lämnas inte ut till tredje part och överförs inte till tredje land. Arbetsförmedlingen upphör att behandla Ansluten användarens personuppgifter för ovanstående ändamål i samband med att Användaren avslutar användningen av Tjänsterna eller stängs av enligt villkoren i detta Avtal.</p>
+                        <p>9.6.	Tillhandahållandet av Tjänsterna förutsätter att Arbetsförmedlingen har möjlighet att behandla personuppgifter på sådant sätt som anges i detta Avtal. Om Ansluten användaren inte önskar att dennes personuppgifter ska behandlas på det sätt som anges i detta Avtal eller om Ansluten användaren önskar få sina personuppgifter raderade medför detta att denne inte längre kan använda Tjänsterna. Ansluten användaren måste då avsluta sin användning genom att avregistrera sig från Tjänsterna.</p>
+                        <p>9.7.	I enlighet med dataskyddslagstiftningen har Ansluten användaren följande rättigheter:</p>
+                        <ol class="p">
+                            <li>Ansluten användare har rätt att på begäran få information om de personuppgifter rörande denne som behandlas av Arbetsförmedlingen. Ansluten användaren har även rätt att begära rättelse eller radering av personuppgifterna samt begära en begränsning av behandlingen eller invända mot en behandling.</li>
+                            <li>Användaren har rätt att få ut de personuppgifter som Ansluten användaren har lämnat till Arbetsförmedlingen enligt detta Avtal i ett strukturerat, allmänt använt och maskinläsbart format och har rätt att överföra dessa uppgifter till en annan personuppgiftsansvarig.</li>
+                            <li>Ansluten användaren har rätt att vända sig till Datainspektionen för att lämna klagomål i de fall denne anser att Arbetsförmedlingen behandlar dennes personuppgifter i strid med dataskyddslagstiftningen. För mer information se Datainspektionens hemsida www.datainspektionen.se.</li>
+
+
+                    </ol>
+                        <p>Vid utövandet av ovanstående rättigheter bör Ansluten användaren i första hand kontakta Arbetsförmedlingen via länken ”Kontakta oss” som finns i Utvecklingsportalen.</p>
+
+                        <h3>10. ANSVAR</h3>
+                        <p>10.1.	Arbetsförmedlingen lämnar inte några utfästelser eller garantier avseende Tjänsterna, API:erna eller API-innehållets kvalitet, korrekthet, säkerhet, tillförlitlighet, tillgänglighet eller prestanda. Detta gäller oavsett vad som framgår av Tjänstebeskrivningen eller andra upplysningar som förmedlas genom Utvecklingsportalen.</p>
+                        <p>10.2.	Ansluten användarens användning av Tjänsterna (inbegripet API:erna och API-innehållet) sker på egen risk och Arbetsförmedlingen ansvarar inte för några skador, direkta, indirekta, följdskador eller skadeståndsanspråk, som uppstår eller som beror på Tjänsternas användning, tillgänglighet eller avbrott.</p>
+                        <p>10.3.	Ansluten användare åtar dig att hålla Arbetsförmedlingen, myndighetens samarbetspartners och anställda skadeslösa från eventuella krav från tredje man med anledning av dennes användning av Tjänsterna, API:erna eller API-innehållet i strid med detta Avtal.</p>
+                        <h3>11. ÄNDRINGAR</h3>
+                        <p>11.1.	Arbetsförmedlingen förbehåller sig rätten att uppdatera och ändra Tjänsterna (inbegripet API:erna och API-innehållet). Det innefattar bland annat rätten att säga upp tillhandahållandet av Tjänsterna samt lägga till eller ta bort begränsningar i användandet av API:er i Tjänsterna. Information om förändringar av Tjänsterna kommer att publiceras i Utvecklingsportalen. Arbetsförmedlingen ska sträva efter att informera om planerade och kommande förändringar av Tjänsterna i god tid, om så är skäligt.</p>
+                        <p>11.2.	Arbetsförmedlingen har rätt att begränsa tillgängligheten till API:erna eller API-innehållet i Tjänsterna i den omfattning som är nödvändig på grund av utveckling, underhåll eller driftmässiga skäl. Arbetsförmedlingen ska sträva efter att minimera avbrottstiden och i största möjliga utsträckning informera Ansluten användaren om planerade avbrott.</p>
+                        <p>11.3.	Arbetsförmedlingen får besluta om tillägg och ändringar av Avtalet och Allmänna villkoren för Arbetsförmedlingens tjänst Platsbanken. De nya versionerna ska träda i kraft den dag som anges i beslutet. Arbetsförmedlingen ska, i Utvecklarportal, underrätta Anslutna användare om sådana villkorsändringar. Underrättelse behöver dock inte ske om ändringarna är av begränsad betydelse. Arbetsförmedlingen får genomföra omedelbara ändringar av villkoren om detta bedöms nödvändigt på grund av säkerhetsskäl, ny författningsreglering, beslut av domstol eller annan myndighet eller annat särskilt skäl. Efter att en ändring av villkoren har genomförts godkänner Ansluten användaren ändringen genom fortsatt användning av Tjänsterna.</p>
+                        <h3>12. AVSTÄNGNING, AVREGISTRERING OCH UPPSÄGNING</h3>
+                        <p>12.1.	Ansluten användaren kan när som helst avsluta användningen av Tjänsterna eller API:erna. Ansluten användaren kan när som helst, utan kostnad, skriftligen avregistrera sig från Tjänsterna och säga upp Avtalet genom att kontakta Arbetsförmedlingen. En avregistrering innebär att Ansluten användaren säger upp Avtalet, återkallar sin begäran om anslutning eller återkallar sitt samtycke till behandling av personuppgifter. Efter genomförd avregistrering kommer Tjänsterna och API-innehållet inte längre att vara tillgänglig för vidareanvändning.</p>
+                        <p>12.2.	Om Ansluten användaren agerar i strid med villkoren i Avtalet har Arbetsförmedlingen rätt att omedelbart, tillfälligt eller permanent stänga av eller begränsa åtkomsten till Tjänsterna, API:erna eller API-innehållet. Ansluten användaren ska snarast möjligt underrättas om avstängningen eller begränsningen samt skälen till denna.</p>
+                        <p>12.3.	Arbetsförmedlingen har även rätt att omedelbart säga upp ett Avtal om:
+                        <ol class="p">
+                            <li>Ansluten användaren i väsentlig mån eller vid upprepade tillfällen brister i förpliktelse enligt Avtalet och inte vidtar rättelse inom anvisat tid efter att Arbetsförmedlingen underrättat denne;</li>
+                            <li>Ansluten användaren försätts i konkurs, inleder ackordsförhandlingar, inställer sina betalningar, ansöker om företagsrekonstruktion eller annars kan anses riskera att komma på obestånd;</li>
+                        <li>det framkommer att Ansluten användaren lämnat oriktiga uppgifter i det underlag som legat till grund för anslutning till API:erna och dessa uppgifter har varit av icke oväsentlig betydelse vid anslutning till API:erna.</li>
+                        </ol>
+                        <p>12.4.	Arbetsförmedlingen har rätt att, efter att ha anslagit förändringar, permanent eller tillfälligt upphöra med att tillhandahålla hela eller delar av Tjänsterna, API:erna eller API-innehållet. Arbetsförmedlingen har även rätt att säga upp ett Avtal om Ansluten användaren invänt mot en ändring, begränsning eller ett tillägg som beslutats enligt detta Avtal. Sådan uppsägning ska gälla från och med den dag då ändringen ska träda i kraft, om inte annat anges.</p>
+                        <p>12.5.	Arbetsförmedlingen får besluta att upphöra med att tillhandahålla Tjänsten och API:erna genom att underrätta Ansluten användaren inom den i beslutet angivna tid för underrättelseentrettio (30) kalenderdagar innan upphörandet. Om beslutet grundar sig i en ändring av de rättsliga förutsättningarna för att tillhandahålla API:erna får Arbetsförmedlingen omedelbart upphöra med att tillhandahålla API:erna, Arbetsförmedlingen ska skyndsamt underrätta Ansluten användaren om detta. Avtalet upphör att gälla från den dag Arbetsförmedlingen upphör med att faktiskt tillhandahålla Tjänsterna och API:erna. Detta sker genom att Arbetsförmedlingen stänger av all tillgång till de driftsatta API:erna.</p>
+                        <p>12.6.	Om Ansluten användarens rätt att använda Tjänsterna och API:erna upphör är denne skyldigt att med omedelbar verkan avsluta och radera sin anslutning till API:erna. Ansluten användaren ska även radera eventuella hänvisningar till Arbetsförmedlingen, som används i eller i samband med dennes produkter eller tjänster som har nyttjat API:erna. Detsamma gäller även behandlingen av samtliga personuppgifter i API-innehållet som överförts till Anslutna användarens system genom API:erna.</p>
+                        <h3>13. ÖVRIGA BESTÄMMELSER</h3>
+                        <p>13.1.	Ansluten användare har inte rätt att överlåta sina rättigheter och skyldigheter under Avtalet.
+                        <p>13.2.	Arbetsförmedlingens dröjsmål med att utöva en rättighet eller göra gällande en påföljd enligt Avtalet skall inte inverka på Arbetsförmedlingens möjligheter att senare utöva rättigheten eller göra gällande påföljden, med undantag för när myndigheten försitter häri angiven tidsfrist. Inte heller skall eftergift av Arbetsförmedlingens rätt med avseende på visst avtalsbrott innebära att Arbetsförmedlingen skall anses ha frånfallit rätten att beivra framtida brott mot sådan bestämmelse eller annan bestämmelse av samme eller annan Ansluten användare.</p>
+                        <p>13.3.	Om någon bestämmelse i detta Avtal, eller del därav, skulle befinnas ogiltig eller eljest inte kunna göras gällande skall detta inte få till följd att Avtalet i dess helhet är ogiltigt. I sådant fall skall Arbetsförmedlingen göra de jämkningar av Avtalet som skäligen är påkallade.</p>
+                        <p>13.4.	Avtalet ska i dess helhet vara underkastat svensk rätt utan hänsyn till lagvalsregler. Tvist angående tolkning eller tillämpning av Avtalet och därmed sammanhängande frågor ska avgöras av svensk allmän domstol med tillämpning av svensk rätt.</p>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button onclick="document.getElementById('approve_licence').removeAttribute('disabled'); if (!document.getElementById('approve_licence').checked){document.getElementById('approve_licence').click()};document.getElementById('approve_licence').setCustomValidity('')" id="agree" type="button" class="btn btn-primary" disabled data-dismiss="modal">Jag godkänner</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-
-</html>

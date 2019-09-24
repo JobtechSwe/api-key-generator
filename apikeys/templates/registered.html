@@ -2,18 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Check your e-mail!</title>
+    <title>Kontrollera din epost!</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body bgcolor="black">
      <img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
      <div class="container">
-         <div class="form">
-             <div class="header">
-             <h1>You'll get email!</h1>
-             <hr>
-                <p>A link will be sent within one minute to your e-mail address {{ email }}</p>
-                <p>(If the link does not arrive, please check your spam folder.)</p>
+         <div class="row">
+             <div class="mx-auto col-sm-12 col-md-8 col-lg-6 col-xl-6">
+                 <div class="form">
+                     <div class="header">
+                     <h1>Kontrollera din e-post!</h1>
+                     <hr>
+                        <p>En länk kommer strax att skickas till din epost-adress {{ email }}</p>
+                        <p>(Om du inte får någon, titta i din skräppost.)</p>
+                     </div>
+                 </div>
              </div>
          </div>
      </div>
