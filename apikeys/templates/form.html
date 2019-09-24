@@ -13,12 +13,13 @@
         }
     </style>
     <title>API keys</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -68,36 +69,38 @@
 
                             <div class="form-group">
                                 <label for="seeAnotherFieldGroup">Privat eller företag</label>
-                                <select class="form-control" id="seeAnotherFieldGroup">
-                                    <option value="priv">Privat</option>
-                                    <option value="comp">Företag</option>
+                                <select class="form-control" name="corporation" id="seeAnotherFieldGroup">
+                                    <option value="0">Privat</option>
+                                    <option value="1">Företag</option>
                                 </select>
                             </div>
+
+
                             <div class="form-group" id="otherFieldGroupDiv">
                                 <label for="companyname">Företagsnamn</label>
                                 <input class="form-control" type="text" name="companyname" placeholder="Företagsnamn" id="companyname" />
                                 <br>
 
                                 <label for="companyaddress">Företagets Adress</label>
-                                <input type="text" class="form-control " placeholder="Företagets adress" id="companyaddress">
+                                <input type="text" class="form-control " name="company_address" placeholder="Företagets adress" id="companyaddress">
                                 <br>
 
                                 <label for="telcomp">Telefonnummer (dagtid)</label>
-                                <input type="text" class="form-control " placeholder="Ange telefonnummer" id="telcomp">
+                                <input type="text" class="form-control " name="company_phone_number" placeholder="Ange telefonnummer" id="telcomp">
 
                             </div>
 
                             <div class="form-group" id="otherFieldGroupDiv2">
                                 <label for="bokadress">Folkbokföringsadress</label>
-                                <input type="text" class="form-control " placeholder="Ange folkbokföringsadress" id="bokadress">
+                                <input type="text" class="form-control " name="address" placeholder="Ange folkbokföringsadress" id="bokadress">
                                 <br>
 
                                 <label for="tel">Telefonnummer (dagtid)</label>
-                                <input type="text" class="form-control " placeholder="Ange telefonnummer" id="tel">
+                                <input type="text" class="form-control " name="phone_number" placeholder="Ange telefonnummer" id="tel">
 
                             </div>
-                            <script src="../static/js/hide-show-fields-form.js"></script>
-
+                            <!-- <script src="../static/js/hide-show-fields-form.js"></script> -->
+                            <script src="{{ url_for('static', filename='js/hide-show-fields-form.js') }}"></script>
                             <br>
                             <label for="applicationname">Namn på din applikation/system </label>
                             <input class="form-control" type="text" name="applicationname" placeholder="Namn på den applikations som använder APIet (obligatorisk)" id="applicationname" required oninvalid="this.setCustomValidity('Please, enter some kind of application name')" oninput="setCustomValidity('')" /><br/>
@@ -110,11 +113,11 @@
                             
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="jobsearch" value="3" id="jobsearch">
+                                    <input class="form-check-input" type="checkbox" name="appid" value="3" id="jobsearch" checked="true">
                                     <label class="form-check-label" for="jobsearch">Job Search API</label><br/>
-                                    <input class="form-check-input" type="checkbox" name="tax" value="8" id="tax">
+                                    <input class="form-check-input" type="checkbox" name="appid" value="8" id="tax" checked="true">
                                     <label class="form-check-label" for="tax">JobTech Taxonomy API</label><br/>
-                                    <input class="form-check-input" type="checkbox" name="bulk" value="16" id="bulk">
+                                    <input class="form-check-input" type="checkbox" name="appid" value="16" id="bulk" checked="true">
                                     <label class="form-check-label" for="bulk">Job Stream Bulk API</label><br/>
 
 
