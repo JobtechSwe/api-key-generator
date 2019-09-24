@@ -2,9 +2,11 @@
 <html lang="se">
     <head>
         <meta charset="UTF-8">
-        <title>Expired link</title>
+        <title>Ogiltig länk</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     </head>
     <body>
         <img src="{{ url_for('static', filename='images/jobtechdev_white.png') }}">
@@ -12,14 +14,13 @@
             <div class="form">
                 <div class="header">
 
-                        <h1>Expired link</h1>
+                        <h1>Ogiltig länk</h1>
                         <hr>
                             <p>
-                                The API key link you're trying to access is no longer available.
+                                API nyckeln länken är inte längre giltig.
                             </p>
                             <p>
-                                If you have an API key registered for the specified e-mail address, please, enter the e-mail address
-                                here to get a new link.
+                                Om du har registrerat API nyckeln med en specifik e-postadress, ange adressen här för att få en ny länk.
 
                             </p>
                             <div>
