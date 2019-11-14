@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.10
 
 EXPOSE 8081
 
@@ -6,16 +6,16 @@ RUN apk update && apk upgrade && \
     apk add --no-cache --update \
         uwsgi-python3 \
         python3-dev \
-        python3 \
         nginx \
+        git \
+        curl \
+        memcached \
         tzdata \
-        postgresql-libs \
         gcc \
         musl-dev \
-        postgresql-dev \
-        supervisor \
-        git && \
-     rm -rfv /var/cache/apk/*
+        postgresql-dev && \
+    rm -rfv /var/cache/apk/*
+
 
 ENV TZ=Europe/Stockholm
 
@@ -36,7 +36,7 @@ RUN date +"%Y-%m-%dT%H:%M:%S %Z" && \
 
 WORKDIR /app
 
-RUN python3 -m pip install --upgrade setuptools
+RUN python3 -m pip install --upgrade pip setuptools
 RUN python3 -m pip install supervisor
 
 # runs unit tests with @pytest.mark.unit annotation only
