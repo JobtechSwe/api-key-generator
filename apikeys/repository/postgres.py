@@ -2,6 +2,7 @@ import logging
 import sys
 import json
 import base64
+import hashlib
 import random
 import string
 import psycopg2
@@ -131,7 +132,8 @@ def _execute_statments(statements):
 
 
 def create_api_key(seed):
-    key = base64.urlsafe_b64encode(seed.encode('utf-8')).decode('utf-8').strip('= ')
+    sha1 = str(hashlib.sha1(seed.encode('utf-8')).digest())
+    key = base64.urlsafe_b64encode(sha1.encode('utf-8')).decode('utf-8').strip('=- ')
     # Ensure key is not longer than 200 chars
     if len(key) > 200:
         key = key[0:200]

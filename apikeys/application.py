@@ -39,7 +39,7 @@ def register():
         flash("You need to enter an application name")
         return redirect("/")
 
-    userinfo = {k: request.form.get(k) for k,v in dict(request.form).items()
+    userinfo = {k: request.form.get(k) for k, v in dict(request.form).items()
                 if k in ['name', 'surname', 'corporation', 'companyname',
                          'company_phone_number', 'company_address', 'phone_number',
                          'address', 'applicationname', 'description']}
