@@ -44,7 +44,7 @@ def get_unsent_keys():
     sql = f"SELECT email, ticket FROM {TABLE_NAME} WHERE sent = 0"
     res = query(sql, ())
     if res:
-        log.info("There were unsent keys: %s" % res)
+        log.info("Found unsent key(s) (email, ticket): %s" % res)
     return res
 
 

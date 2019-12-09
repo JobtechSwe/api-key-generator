@@ -114,7 +114,7 @@ def retrieve_key():
         flash("You must provide an email address")
         return redirect("/key/%s" % ticket)
     else:
-        log.debug("Preparing to resend email to %s" % email)
+        log.debug("Preparing to resend email to: %s" % email)
         postgres.set_sent_flag(email, 0)
         postgres.set_visited(ticket, force=True)
 
