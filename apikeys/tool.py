@@ -13,12 +13,12 @@ log = logging.getLogger(__name__)
 def send_link_email(recipient, key):
     host = os.getenv('HOST_URL')
     if not host:
-        log.error("No HOST_URL environment variable specified")
+        log.error("No HOST_URL environment variable specified. Exit!")
         sys.exit(1)
     try:
         if not host.startswith('http'):
             host = 'https://' + os.getenv('HOST_URL')
-
+        log.debug("HOST_URL environment set to: %s" % host)
         context = ssl.create_default_context()
         server = smtplib.SMTP(settings.MAIL_HOST, settings.MAIL_PORT)
         server.ehlo()

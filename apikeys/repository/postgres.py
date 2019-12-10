@@ -2,6 +2,7 @@ import logging
 import sys
 import json
 import base64
+import hashlib
 import random
 import string
 import psycopg2
@@ -15,7 +16,7 @@ APPLICATION_TABLE = 'available_apis'
 
 if not settings.PG_DBNAME or not settings.PG_USER:
     log.error("You must set environment variables for PostgresSQL (i.e. "
-              "PG_HOST, PG_DBNAME, PG_USER and PG_PASSWORD.)")
+              "PG_HOST, PG_DBNAME, PG_USER and PG_PASSWORD.). Exit!")
     sys.exit(1)
 
 if not settings.PG_HOST:
@@ -42,6 +43,8 @@ def query(sql, args):
 def get_unsent_keys():
     sql = f"SELECT email, ticket FROM {TABLE_NAME} WHERE sent = 0"
     res = query(sql, ())
+    if res:
+        log.info("Found unsent key(s) (email, ticket): %s" % res)
     return res
 
 
@@ -50,7 +53,7 @@ def set_sent_flag(email, flag=0):
     cur = pg_conn.cursor()
     cur.execute(sql, (flag, email, ))
     pg_conn.commit()
-
+    log.debug("Set sent flag: %d for email: %s" % (flag, email))
 
 def get_key_for_ticket(ticket):
     sql = f"SELECT apikey FROM {TABLE_NAME} WHERE ticket = %s" + \
@@ -96,7 +99,8 @@ def get_available_applications():
 
 def store_key(apikey, email, application_id, userinfo, api_id=0):
     ticket = generate_ticket()
-    log.debug("STORING apikey %s, email %s, user %s, api_id %s" % (apikey, email, userinfo, api_id))
+    log.debug("STORING apikey %s, email %s, user %s, api_id %s"
+              % (apikey, email, userinfo, api_id))
 
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
@@ -131,10 +135,12 @@ def _execute_statments(statements):
 
 
 def create_api_key(seed):
-    key = base64.urlsafe_b64encode(seed.encode('utf-8')).decode('utf-8').strip('= ')
+    sha1 = str(hashlib.sha1(seed.encode('utf-8')).digest())
+    key = base64.urlsafe_b64encode(sha1.encode('utf-8')).decode('utf-8').strip('=- ')
     # Ensure key is not longer than 200 chars
     if len(key) > 200:
         key = key[0:200]
+        log.info("Api-Key length was > 200. Set to 200")
     return key
 
 

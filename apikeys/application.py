@@ -39,7 +39,7 @@ def register():
         flash("You need to enter an application name")
         return redirect("/")
 
-    userinfo = {k: request.form.get(k) for k,v in dict(request.form).items()
+    userinfo = {k: request.form.get(k) for k, v in dict(request.form).items()
                 if k in ['name', 'surname', 'corporation', 'companyname',
                          'company_phone_number', 'company_address', 'phone_number',
                          'address', 'applicationname', 'description']}
@@ -114,7 +114,7 @@ def retrieve_key():
         flash("You must provide an email address")
         return redirect("/key/%s" % ticket)
     else:
-        log.debug("Preparing to resend email to %s" % email)
+        log.debug("Preparing to resend email to: %s" % email)
         postgres.set_sent_flag(email, 0)
         postgres.set_visited(ticket, force=True)
 
