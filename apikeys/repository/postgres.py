@@ -19,20 +19,25 @@ if not settings.PG_DBNAME or not settings.PG_USER:
               "PG_HOST, PG_DBNAME, PG_USER and PG_PASSWORD.). Exit!")
     sys.exit(1)
 
-if not settings.PG_HOST:
-    log.info("PG_HOST not set, assuming local socket")
-    pg_conn = psycopg2.connect(dbname=settings.PG_DBNAME,
-                               user=settings.PG_USER)
-else:
-    pg_conn = psycopg2.connect(host=settings.PG_HOST,
-                               port=settings.PG_PORT,
-                               dbname=settings.PG_DBNAME,
-                               user=settings.PG_USER,
-                               password=settings.PG_PASSWORD,
-                               sslmode=settings.PG_SSLMODE)
+
+def connect_database():
+    global pg_conn
+    if not settings.PG_HOST:
+        log.info("PG_HOST not set, assuming local socket")
+        pg_conn = psycopg2.connect(dbname=settings.PG_DBNAME,
+                                   user=settings.PG_USER)
+    else:
+        pg_conn = psycopg2.connect(host=settings.PG_HOST,
+                                   port=settings.PG_PORT,
+                                   dbname=settings.PG_DBNAME,
+                                   user=settings.PG_USER,
+                                   password=settings.PG_PASSWORD,
+                                   sslmode=settings.PG_SSLMODE)
 
 
 def query(sql, args):
+    if pg_conn.closed > 0:
+        connect_database()
     cur = pg_conn.cursor()
     cur.execute(sql, args)
     rows = cur.fetchall()
@@ -49,11 +54,14 @@ def get_unsent_keys():
 
 
 def set_sent_flag(email, flag=0):
+    if pg_conn.closed > 0:
+        connect_database()
     sql = f"UPDATE {TABLE_NAME} SET sent = %s WHERE email = %s"
     cur = pg_conn.cursor()
     cur.execute(sql, (flag, email, ))
     pg_conn.commit()
     log.debug("Set sent flag: %d for email: %s" % (flag, email))
+
 
 def get_key_for_ticket(ticket):
     sql = f"SELECT apikey FROM {TABLE_NAME} WHERE ticket = %s" + \
@@ -83,6 +91,8 @@ def set_visited(key, force=False):
         log.debug("Called set_visited without key.")
         return
 
+    if pg_conn.closed > 0:
+        connect_database()
     cur = pg_conn.cursor()
     cur.execute(sql, (key, ))
     pg_conn.commit()
@@ -102,6 +112,8 @@ def store_key(apikey, email, application_id, userinfo, api_id=0):
     log.debug("STORING apikey %s, email %s, user %s, api_id %s"
               % (apikey, email, userinfo, api_id))
 
+    if pg_conn.closed > 0:
+        connect_database()
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
                 " (apikey, email, application_id, userinfo, api_id, ticket)"
@@ -116,6 +128,8 @@ def store_key(apikey, email, application_id, userinfo, api_id=0):
 
 
 def table_exists(table):
+    if pg_conn.closed > 0:
+        connect_database()
     cur = pg_conn.cursor()
     cur.execute("select exists(select * from information_schema.tables "
                 "where table_name=%s)", (table,))
@@ -123,6 +137,8 @@ def table_exists(table):
 
 
 def _execute_statments(statements):
+    if pg_conn.closed > 0:
+        connect_database()
     try:
         cur = pg_conn.cursor()
         for statement in statements:
