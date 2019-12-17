@@ -39,6 +39,7 @@ def connect_database():
 
 
 def query(sql, args):
+    global pg_conn
     if pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
@@ -58,6 +59,7 @@ def get_unsent_keys():
 
 
 def set_sent_flag(email, flag=0):
+    global pg_conn
     if pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
@@ -88,6 +90,7 @@ def get_keys_for_api(api_id):
 
 
 def set_visited(key, force=False):
+    global pg_conn
     if key:
         sql = f"UPDATE {TABLE_NAME} SET visited = CURRENT_TIMESTAMP" + \
               " WHERE ticket = %s"
@@ -116,6 +119,7 @@ def get_available_applications():
 
 
 def store_key(apikey, email, application_id, userinfo, api_id=0):
+    global pg_conn
     ticket = generate_ticket()
     log.debug("STORING apikey %s, email %s, user %s, api_id %s"
               % (apikey, email, userinfo, api_id))
@@ -138,6 +142,7 @@ def store_key(apikey, email, application_id, userinfo, api_id=0):
 
 
 def table_exists(table):
+    global pg_conn
     if pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
@@ -148,6 +153,7 @@ def table_exists(table):
 
 
 def _execute_statments(statements):
+    global pg_conn
     if pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
