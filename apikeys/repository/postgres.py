@@ -33,10 +33,14 @@ def connect_database():
                                    user=settings.PG_USER,
                                    password=settings.PG_PASSWORD,
                                    sslmode=settings.PG_SSLMODE)
+        log.info("Connected to Host: %s:%s DB: %s User: %s" % (
+        settings.PG_HOST, settings.PG_PORT, settings.PG_DBNAME,
+        settings.PG_USER))
 
 
 def query(sql, args):
     if pg_conn.closed > 0:
+        log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
     cur.execute(sql, args)
@@ -55,11 +59,13 @@ def get_unsent_keys():
 
 def set_sent_flag(email, flag=0):
     if pg_conn.closed > 0:
+        log.info("Connection to DB is closed. Connecting...")
         connect_database()
     sql = f"UPDATE {TABLE_NAME} SET sent = %s WHERE email = %s"
     cur = pg_conn.cursor()
-    cur.execute(sql, (flag, email, ))
+    cur.execute(sql, (flag, email,))
     pg_conn.commit()
+    cur.close()
     log.debug("Set sent flag: %d for email: %s" % (flag, email))
 
 
@@ -67,7 +73,7 @@ def get_key_for_ticket(ticket):
     sql = f"SELECT apikey FROM {TABLE_NAME} WHERE ticket = %s" + \
           " AND (visited > (CURRENT_TIMESTAMP - interval '10 mins') " + \
           " OR visited IS NULL)"
-    res = query(sql, (ticket, ))
+    res = query(sql, (ticket,))
     if res:
         return res[0][0]
     return None
@@ -84,18 +90,20 @@ def get_keys_for_api(api_id):
 def set_visited(key, force=False):
     if key:
         sql = f"UPDATE {TABLE_NAME} SET visited = CURRENT_TIMESTAMP" + \
-            " WHERE ticket = %s"
+              " WHERE ticket = %s"
         if not force:
             sql += " AND visited is null"
     else:
-        log.debug("Called set_visited without key.")
+        log.debug("Called set_visited() without key.")
         return
 
     if pg_conn.closed > 0:
+        log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
-    cur.execute(sql, (key, ))
+    cur.execute(sql, (key,))
     pg_conn.commit()
+    cur.close()
 
 
 def get_available_applications():
@@ -113,6 +121,7 @@ def store_key(apikey, email, application_id, userinfo, api_id=0):
               % (apikey, email, userinfo, api_id))
 
     if pg_conn.closed > 0:
+        log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
     cur.execute("INSERT INTO " + TABLE_NAME +
@@ -124,11 +133,13 @@ def store_key(apikey, email, application_id, userinfo, api_id=0):
                 (apikey, email, application_id, json.dumps(userinfo), api_id, ticket,
                  email, application_id, json.dumps(userinfo), api_id, ticket))
     pg_conn.commit()
+    cur.close()
     return ticket
 
 
 def table_exists(table):
     if pg_conn.closed > 0:
+        log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
     cur.execute("select exists(select * from information_schema.tables "
@@ -138,13 +149,14 @@ def table_exists(table):
 
 def _execute_statments(statements):
     if pg_conn.closed > 0:
+        log.info("Connection to DB is closed. Connecting...")
         connect_database()
     try:
         cur = pg_conn.cursor()
         for statement in statements:
             cur.execute(statement)
-        cur.close()
         pg_conn.commit()
+        cur.close()
     except (Exception, psycopg2.DatabaseError) as e:
         log.error("Failed to create database table: %s" % str(e))
         raise e
@@ -182,13 +194,13 @@ def sanity_check():
                     )
                 """.format(table=TABLE_NAME),
                 "CREATE INDEX {table}_apikey_idx ON {table} (apikey)"
-                .format(table=TABLE_NAME),
+                    .format(table=TABLE_NAME),
                 "CREATE INDEX {table}_api_id_idx ON {table} (api_id)"
-                .format(table=TABLE_NAME),
+                    .format(table=TABLE_NAME),
                 "CREATE INDEX {table}_email_idx ON {table} (email)"
-                .format(table=TABLE_NAME),
+                    .format(table=TABLE_NAME),
                 "CREATE INDEX {table}_ticket_idx ON {table} (ticket)"
-                .format(table=TABLE_NAME),
+                    .format(table=TABLE_NAME),
             )
         )
     if not table_exists(APPLICATION_TABLE):
