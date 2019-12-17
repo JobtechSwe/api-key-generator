@@ -14,6 +14,8 @@ log = logging.getLogger(__name__)
 TABLE_NAME = 'apikeys'
 APPLICATION_TABLE = 'available_apis'
 
+pg_conn = None
+
 if not settings.PG_DBNAME or not settings.PG_USER:
     log.error("You must set environment variables for PostgresSQL (i.e. "
               "PG_HOST, PG_DBNAME, PG_USER and PG_PASSWORD.). Exit!")
@@ -34,13 +36,12 @@ def connect_database():
                                    password=settings.PG_PASSWORD,
                                    sslmode=settings.PG_SSLMODE)
         log.info("Connected to Host: %s:%s DB: %s User: %s" % (
-        settings.PG_HOST, settings.PG_PORT, settings.PG_DBNAME,
-        settings.PG_USER))
+            settings.PG_HOST, settings.PG_PORT, settings.PG_DBNAME,
+            settings.PG_USER))
 
 
 def query(sql, args):
-    global pg_conn
-    if pg_conn.closed > 0:
+    if not pg_conn or pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
@@ -59,8 +60,7 @@ def get_unsent_keys():
 
 
 def set_sent_flag(email, flag=0):
-    global pg_conn
-    if pg_conn.closed > 0:
+    if not pg_conn or pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
     sql = f"UPDATE {TABLE_NAME} SET sent = %s WHERE email = %s"
@@ -90,7 +90,6 @@ def get_keys_for_api(api_id):
 
 
 def set_visited(key, force=False):
-    global pg_conn
     if key:
         sql = f"UPDATE {TABLE_NAME} SET visited = CURRENT_TIMESTAMP" + \
               " WHERE ticket = %s"
@@ -100,7 +99,7 @@ def set_visited(key, force=False):
         log.debug("Called set_visited() without key.")
         return
 
-    if pg_conn.closed > 0:
+    if not pg_conn or pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
@@ -119,12 +118,11 @@ def get_available_applications():
 
 
 def store_key(apikey, email, application_id, userinfo, api_id=0):
-    global pg_conn
     ticket = generate_ticket()
     log.debug("STORING apikey %s, email %s, user %s, api_id %s"
               % (apikey, email, userinfo, api_id))
 
-    if pg_conn.closed > 0:
+    if not pg_conn or pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
@@ -142,8 +140,7 @@ def store_key(apikey, email, application_id, userinfo, api_id=0):
 
 
 def table_exists(table):
-    global pg_conn
-    if pg_conn.closed > 0:
+    if not pg_conn or pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
     cur = pg_conn.cursor()
@@ -153,8 +150,7 @@ def table_exists(table):
 
 
 def _execute_statments(statements):
-    global pg_conn
-    if pg_conn.closed > 0:
+    if not pg_conn or pg_conn.closed > 0:
         log.info("Connection to DB is closed. Connecting...")
         connect_database()
     try:
@@ -199,14 +195,10 @@ def sanity_check():
                         visited TIMESTAMP WITH TIME ZONE
                     )
                 """.format(table=TABLE_NAME),
-                "CREATE INDEX {table}_apikey_idx ON {table} (apikey)"
-                    .format(table=TABLE_NAME),
-                "CREATE INDEX {table}_api_id_idx ON {table} (api_id)"
-                    .format(table=TABLE_NAME),
-                "CREATE INDEX {table}_email_idx ON {table} (email)"
-                    .format(table=TABLE_NAME),
-                "CREATE INDEX {table}_ticket_idx ON {table} (ticket)"
-                    .format(table=TABLE_NAME),
+                "CREATE INDEX {table}_apikey_idx ON {table} (apikey)".format(table=TABLE_NAME),
+                "CREATE INDEX {table}_api_id_idx ON {table} (api_id)".format(table=TABLE_NAME),
+                "CREATE INDEX {table}_email_idx ON {table} (email)".format(table=TABLE_NAME),
+                "CREATE INDEX {table}_ticket_idx ON {table} (ticket)".format(table=TABLE_NAME),
             )
         )
     if not table_exists(APPLICATION_TABLE):
