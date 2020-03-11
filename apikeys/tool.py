@@ -26,11 +26,12 @@ def send_link_email(recipient, key):
         server.ehlo()
         server.login(settings.MAIL_USERNAME, settings.MAIL_PASSWORD)
         message = "To: {recipient}\nSubject: Your link to API key for JobtechDev\n\n" + \
-                  "Thank You for building applications using JobTech's APIs.\n\n " + \
+                  "Thank You for building applications using JobTech's APIs.\n\n" + \
                   "We hope You will find them easy to use and that Your application will help" + \
-                  " employees and employers to find each other. \n" + \
-                  "By following the link You will get your API key {host}/key/{key}\n" + \
-                  "If You have any questions, please reply to this e-mail. Thank You!\n\n" + \
+                  " employees and employers to find each other.\n" + \
+                  "By following the link You will get Your API key {host}/key/{key}\n" + \
+                  "If You have any questions, please send an e-mail to jobtechdev@arbetsformedlingen.se\n" \
+                  "Thank You!\n\n" + \
                   "Best regards, The JobTech API teams"
 
         server.sendmail(settings.MAIL_SENDER, recipient,
