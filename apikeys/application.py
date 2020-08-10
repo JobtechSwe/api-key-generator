@@ -55,7 +55,7 @@ def register():
 APP_ID_JOB_SEARCH = '3'
 APP_ID_JOB_STREAM_BULK = '16'
 # APP_ID_TAXONOMY = '8'
-APP_ID_JOBAD_ENRICHMENTS = '64'
+# APP_ID_JOBAD_ENRICHMENTS = '64'
 
 def _validate_form(req, appids):
     if not req.form.get('approve_gdpr'):
@@ -65,10 +65,6 @@ def _validate_form(req, appids):
     if (APP_ID_JOB_SEARCH in appids or APP_ID_JOB_STREAM_BULK in appids) and not req.form.get('approve_licence'):
         log.debug("User has not approved license for Job Search API and Job Stream Bulk API, sending back to base page")
         flash("You must approve our usage license for Job Search API and Job Stream Bulk API.")
-        return False
-    if APP_ID_JOBAD_ENRICHMENTS in appids and not req.form.get('approve_licence_jae'):
-        log.debug("User has not approved license for JobAd Enrichments API, sending back to base page")
-        flash("You must approve our usage license for JobAd Enrichments API.")
         return False
     if not req.form.get('email'):
         log.debug("User has provided an email address, sending back to base page")

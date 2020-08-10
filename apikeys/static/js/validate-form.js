@@ -1,7 +1,6 @@
 
 
 var isJobSearchLicenseApproved = false;
-var isJaeLicenseApproved = false;
 
 function approveJobSearchLicense(){
     var domApproveLicense = document.getElementById('approve_licence');
@@ -12,14 +11,7 @@ function approveJobSearchLicense(){
     }
 }
 
-function approveJobAdEnrichmentsLicense(){
-    var domApproveLicense = document.getElementById('approve_licence_jae');
-    isJaeLicenseApproved = true;
-    domApproveLicense.setCustomValidity('');
-    if (!domApproveLicense.checked){
-        domApproveLicense.click();
-    }
-}
+
 
 function isAnyCheckBoxChecked(ids) {
     var isAnyChecked = false;
@@ -43,7 +35,6 @@ function isAnyApiChecked() {
 }
 
 var validationMessageJobSearchAgreement = 'Du måste läsa och godkänna avtalet';
-var validationMessageJaeAgreement = 'Du måste läsa och godkänna avtalet för JobAd Enrichments';
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -51,11 +42,9 @@ $(function () {
 
 $(document).ready(function(){
     document.getElementById('approve_licence').setCustomValidity(validationMessageJobSearchAgreement);
-    document.getElementById('approve_licence_jae').setCustomValidity(validationMessageJaeAgreement);
 
 
     registerModalEvents('licence', 'agree');
-    registerModalEvents('licence_jae', 'agree_jae_btn');
 });
 
 function registerModalEvents(modalId, buttonId) {
@@ -117,21 +106,7 @@ function setAgreementRequired() {
     }
 }
 
-function setAgreementRequiredJae() {
-    var apiChecked = isAnyCheckBoxChecked(['jae']);
-    var domApproveLicense = document.getElementById('approve_licence_jae');
 
-    domApproveLicense.required = apiChecked;
-
-    if (apiChecked && (!isJaeLicenseApproved || !domApproveLicense.checked)) {
-        domApproveLicense.required = true;
-        domApproveLicense.setCustomValidity(validationMessageJaeAgreement);
-
-    } else {
-        domApproveLicense.required = false;
-        domApproveLicense.setCustomValidity('');
-    }
-}
 
 function checkIfAnyApiChosen() {
     var domJobsearch = document.getElementById('jobsearch');

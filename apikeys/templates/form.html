@@ -146,15 +146,9 @@
                                 </div>
                                 <div class="api-check-area">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="appid" value="64" id="jae" checked="checked" onchange="setAgreementRequiredJae()">
+                                        <input class="form-check-input" type="checkbox" name="appid" value="64" id="jae" checked="checked">
                                         <label class="form-check-label" for="jae">JobAd Enrichments API</label><br/>
 
-                                        <input class="form-check-input" type="checkbox" name="approve_licence_jae" value="1"
-                                               id="approve_licence_jae" required onchange="setAgreementRequiredJae()">
-                                        <label class="form-check-label" for="approve_licence_jae">Jag anmäler mig härmed för att
-                                            få tillgång till tjänsten JobAd Enrichments och accepterar de <a class="btn-link" id="show_license_jae"
-                                                                                                             data-toggle="modal" href="#licence_jae">
-                                                allmänna villkoren</a> för tjänsten </label><br/>
                                     </div>
 
                                     </div>
@@ -346,50 +340,5 @@
         </div>
     </div>
 
-
-<!-- Modal, JobAd Enrichments -->
-<div class="modal fade" id="licence_jae" tabindex="-1" role="dialog" aria-labelledby="licenceLableJae" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="licenceLableJae">ALLMÄNNA VILLKOR FÖR ANVÄNDNING AV TJÄNSTEN<br />JOBAD ENRICHMENTS</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="modalLicenceJae">
-                <div class="format">
-
-
-                    <h4>Rubrik 1</h4>
-                    <h3>Rurbrik 2</h3>
-                    <p>1.1.	Text här</p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at leo nisl. Praesent consequat diam eget justo ornare porttitor. Curabitur nulla eros, efficitur vel elementum sit amet, tempus eget velit. Aenean facilisis ac mi id lobortis. Integer congue elit urna, varius maximus ligula euismod et. Quisque dapibus turpis facilisis eros cursus posuere. Morbi id commodo enim. Pellentesque consectetur dolor sit amet malesuada commodo. Donec quis augue et nulla convallis accumsan. Aenean consectetur nunc massa, ac ornare diam dictum id. Nulla ac ipsum arcu. Mauris in tincidunt lectus. Vivamus elit libero, pretium et dolor ac, vulputate tempus turpis. Donec faucibus est eget nisi egestas blandit. Pellentesque consequat dolor eu volutpat vulputate.
-
-                        In viverra arcu a feugiat maximus. In facilisis gravida sem. Nam ultrices aliquet arcu, eget vestibulum turpis sodales non. Quisque sed dolor ullamcorper, aliquam quam porta, convallis lacus. Aliquam erat volutpat. Praesent eu turpis lectus. In nec tristique quam. Donec at viverra augue, quis gravida nisi.
-
-                        Maecenas lorem mi, faucibus in eros id, lobortis semper nunc. Morbi hendrerit sollicitudin ligula, sed imperdiet risus sodales ac. Donec facilisis, tortor nec semper congue, ante augue ultrices odio, sit amet iaculis metus nunc eget diam. Donec consequat nisi molestie risus maximus, tempor faucibus sapien laoreet. In mattis a diam id condimentum. Donec posuere rhoncus neque, at consequat mi molestie a. Donec ultrices, eros eu venenatis rutrum, diam ante lobortis diam, sit amet aliquam odio nunc sit amet nunc. Aliquam justo erat, venenatis sed elit ac, accumsan ultricies odio. Pellentesque at massa ut augue tincidunt ultrices quis eu lorem. Proin eget rutrum erat, eget tincidunt sem.
-
-                        Vestibulum nec neque hendrerit, imperdiet lacus vitae, suscipit dui. Suspendisse eget eros eget ante iaculis iaculis. Duis hendrerit a quam non dictum. Ut et lacus eget justo consequat fermentum. Quisque tincidunt nisi sagittis ante congue lacinia. In ac sodales neque. Vestibulum convallis pellentesque urna, eu facilisis quam ultrices et. Vestibulum vehicula egestas consequat. Nam eget ultrices sem, non pharetra ligula. Suspendisse metus odio, vehicula ac tempus sit amet, aliquet in nisl. Integer pretium accumsan dolor, posuere porttitor metus aliquam sed.
-
-                        Nulla placerat facilisis nisl non pulvinar. Morbi vel auctor sem, et condimentum magna. Praesent nisi quam, facilisis vitae tempus ut, mollis sit amet massa. Sed nec felis mi. Curabitur eros nisi, sollicitudin at augue vitae, auctor convallis est. Vestibulum aliquet non lectus id hendrerit. Ut et eleifend orci. Integer ut odio nulla. Sed sagittis erat eget quam pretium, eget feugiat erat blandit. Etiam mollis volutpat ultrices. Curabitur auctor hendrerit ullamcorper. Sed consequat egestas nisl ac elementum. Fusce luctus iaculis purus in tincidunt. Aenean dui risus, rutrum in consectetur ut, aliquam in dolor.
-                    </p>
-
-                </div>
-
-            </div>
-            <div class="modal-footer">
-
-
-
-                <span id="agree_jae_btn-tooltipwrapper" class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="top" title="Var vänlig och läs texten innan du godkänner">
-                     <button onclick="approveJobAdEnrichmentsLicense()" id="agree_jae_btn" type="button" class="btn btn-primary btn-agree" disabled data-dismiss="modal">Jag godkänner</button>
-                </span>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
