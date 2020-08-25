@@ -1,4 +1,7 @@
-
+@charset "UTF-8";
+@import "https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap";
+@import "https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap";
+@import "https://fonts.googleapis.com/css?family=IBM Plex Mono";
 
 .avtal {
     width:70%;
@@ -21,14 +24,28 @@ img {
 
 
 button {
-    margin-top: 20px;
-    margin-right: 8px;
     border-radius: 3px;
-    background-color: #733ACA;
-    font-weight: bold;
+    background-color: #000;
     color:white;
-    width: 100px;
+    font-family: ibm plex mono,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol !important;
 
+}
+
+.btn-agree.disabled, .btn-agree:disabled {
+    background-color: #000 !important;
+    border-color: #808080;
+    color:#9e9e9e;
+    pointer-events: none !important;
+}
+
+.btn-agree.hover, .btn-agree:hover {
+    background-color: #808080;
+    border-color: #000;
+}
+
+.btn-agree {
+    background-color: #000;
+    border-color: #808080;
 }
 
 
@@ -39,10 +56,6 @@ hr {
     margin-bottom: 30px;
 
 }
-p {
-    font: open Sans;
-
-}
 h1 {
     font-size: 48px;
     line-height: 27px;
@@ -51,14 +64,27 @@ h1 {
     font-weight: bold;
     font-family: Open Sans, sans-serif;
 }
+
+h2 {
+    text-transform: uppercase;
+}
+
 h3 {
     margin-top: 25px;
 }
 body {
     background-color: white;
     color: black;
-    font-family: Open Sans, sans-serif;
+    font-family: ibm plex sans,sans serif;
+    padding:1em;
+    padding-bottom:2em;
 }
+
+
+#jobtech-logo svg {
+    max-width:190px;
+}
+
 #appid{
     width:15px;
 }
@@ -74,6 +100,13 @@ body {
 
 #approve_licence{
     width:15px;
+}
+
+.api-check-area{
+    background-color: #f7f7f7;
+    border: solid 1px #808080;
+    padding: 0.3em;
+    margin-bottom: 1em;
 }
 
 
@@ -95,8 +128,8 @@ body {
 #box{
     margin: auto;
     width: 100%;
-    border: 0px solid white;
-    padding: 0px;
+    border: 0 solid white;
+    padding: 0;
 }
 
 #keystyle{
@@ -124,3 +157,8 @@ ol.c {
     list-style-type: upper-roman;
 }
 ol.p {list-style-type: lower-latin;}
+
+.registered-useremail {
+    font-weight: bold;
+    font-family: ibm plex mono,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol !important;
+}
