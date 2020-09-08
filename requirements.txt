@@ -1,7 +1,6 @@
 git+https://github.com/JobtechSwe/jobtech-common.git
-elasticsearch
-psycopg2-binary
-flask
-certifi
-pytest
-pytest-runner
+elasticsearch~=7.9.1
+psycopg2-binary~=2.8.5
+flask~=1.1.2
+certifi~=2020.6.20
+pytest~=6.0.1
